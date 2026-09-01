@@ -31,6 +31,9 @@ Apply migrations in order:
    operation receipts.
 3. `supabase/migrations/0003_commission_workflow.sql` — atomic, idempotent
    commission creation and authenticated workspace financial summaries.
+4. `supabase/migrations/0004_directory_workflow.sql` — versioned client and
+   property creation, replacement updates, reason-required voiding, audit
+   events, and offline-sync receipts.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -84,6 +87,8 @@ Implemented foundation and first finance vertical:
 - validated, role-aware commission list/create API
 - atomic deduction, sync-receipt, and audit-event persistence
 - authenticated annual workspace summary API
+- authenticated client and property list/detail/create/update/void APIs
+- optimistic record-version checks for safe concurrent directory edits
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design
