@@ -40,6 +40,9 @@ Apply migrations in order:
 6. `supabase/migrations/0006_bank_workflow.sql` — bank accounts, duplicate-safe
    CSV imports, prioritized review, categorization, exact matching,
    reconciliation posting, audit events, and offline-sync receipts.
+7. `supabase/migrations/0007_receipt_storage.sql` — private receipt bucket,
+   verified upload metadata, record linking, short-lived access, receipt-status
+   synchronization, audit events, and reason-required voiding.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -100,6 +103,8 @@ Implemented foundation and first finance vertical:
 - normalized bank CSV import with file and row duplicate protection
 - Bank Feed review, categorization, transaction/commission matching,
   reconciliation, and reason-required ignoring
+- private PDF/image receipt uploads with byte-level type, size, and checksum
+  verification before bookkeeping records are marked attached
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design

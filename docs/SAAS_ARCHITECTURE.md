@@ -215,7 +215,7 @@ recalculation.
 
 - Bank CSV import (implemented server contract)
 - Review, categorization, matching, and reconciliation (implemented server contract)
-- Receipt storage
+- Receipt storage (implemented server contract)
 - Mileage and recurring expenses
 - Reports and exports
 
