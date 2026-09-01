@@ -29,6 +29,8 @@ Apply migrations in order:
 2. `supabase/migrations/0002_finance_domain.sql` — tenant-isolated financial
    records, banking workflow, mileage, planning, audit, attachments, and sync
    operation receipts.
+3. `supabase/migrations/0003_commission_workflow.sql` — atomic, idempotent
+   commission creation and authenticated workspace financial summaries.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -51,7 +53,7 @@ stripe listen --forward-to localhost:3000/api/stripe/webhook
 
 ## Current status
 
-Phase 0 foundation:
+Implemented foundation and first finance vertical:
 
 - Supabase authentication
 - workspace membership and role model
@@ -61,8 +63,11 @@ Phase 0 foundation:
 - tenant RLS foundation
 - append-only audit model
 - offline-sync contract
+- decimal-safe commission calculations with regression fixtures
+- validated, role-aware commission list/create API
+- atomic deduction, sync-receipt, and audit-event persistence
+- authenticated annual workspace summary API
 - legacy HTML retained for calculation and workflow parity
 
-The visual product interface is still intentionally minimal. The next
-implementation phase ports the financial calculation engine and core record
-workflows into typed modules and authenticated workspace routes.
+The visual product interface is still intentionally minimal so product design
+can evolve independently of the authenticated finance and billing foundation.
