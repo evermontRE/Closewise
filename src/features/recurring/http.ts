@@ -1,0 +1,10 @@
+import { NextResponse } from "next/server";
+import { RecurringMutationError } from "@/data/recurring";
+import { WorkspaceAccessError } from "@/data/workspace-access";
+import { RecurringInputError, RECURRING_TYPES } from "./input";
+export const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+export function recurringQuery(request:Request){const u=new URL(request.url),page=Math.max(Number.parseInt(u.searchParams.get("page")??"1",10)||1,1),pageSize=Math.min(Math.max(Number.parseInt(u.searchParams.get("pageSize")??"25",10)||25,1),100),type=u.searchParams.get("type")??"",status=u.searchParams.get("status")??"active";return{page,pageSize,from:(page-1)*pageSize,type:RECURRING_TYPES.includes(type as never)?type:"",status:["active","inactive","all"].includes(status)?status:"active",dueBefore:validDate(u.searchParams.get("dueBefore"))};}
+export function mutationId(r:Request){const v=r.headers.get("idempotency-key")?.trim();if(!v||v.length<8||v.length>160)throw new RecurringMutationError(400,"A valid Idempotency-Key header is required");return v;}
+export function expectedVersion(r:Request){const v=Number.parseInt(r.headers.get("if-match")?.replaceAll('"',"").trim()??"",10);if(!Number.isSafeInteger(v)||v<1)throw new RecurringMutationError(428,"A valid If-Match record version is required");return v;}
+export function recurringError(e:unknown,label:string){if(e instanceof RecurringInputError)return NextResponse.json({error:e.message,fields:e.fields},{status:400});if(e instanceof RecurringMutationError||e instanceof WorkspaceAccessError)return NextResponse.json({error:e.message},{status:e.status});if(e instanceof SyntaxError)return NextResponse.json({error:"Request body must be valid JSON"},{status:400});console.error(`${label} API error`,e instanceof Error?e.message:"Unknown error");return NextResponse.json({error:"Unable to complete the request"},{status:500});}
+function validDate(v:string|null){if(!v||!/^\d{4}-\d{2}-\d{2}$/.test(v))return"";const d=new Date(`${v}T00:00:00Z`);return!Number.isNaN(d.valueOf())&&d.toISOString().slice(0,10)===v?v:"";}

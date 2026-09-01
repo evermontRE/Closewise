@@ -156,6 +156,12 @@ user override is never silently replaced. Vehicles retain annual beginning and
 ending odometers, trips may retain their own odometer pair, and the server
 computes the authoritative deduction with decimal arithmetic.
 
+The recurring-obligations vertical is implemented in
+`0009_recurring_obligations.sql`. It forecasts subscription and recurring-bill
+commitments, retains renewal history, and computes annualized cost exactly.
+Confirming a renewal advances its schedule but does not create a ledger
+transaction; bank review and reconciliation remain the posting boundary.
+
 ## Security requirements before beta
 
 - RLS tests prove that users cannot read or mutate another workspace.
