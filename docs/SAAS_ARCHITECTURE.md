@@ -213,8 +213,8 @@ recalculation.
 
 ### Phase 2 — bookkeeping workflow
 
-- Bank CSV import
-- Review, categorization, matching, and reconciliation
+- Bank CSV import (implemented server contract)
+- Review, categorization, matching, and reconciliation (implemented server contract)
 - Receipt storage
 - Mileage and recurring expenses
 - Reports and exports
@@ -242,4 +242,3 @@ recalculation.
 - Treating estimates as professional advice
 - Moving secrets into client code
 - Merging directly into the repository's default branch
-
