@@ -43,6 +43,9 @@ Apply migrations in order:
 7. `supabase/migrations/0007_receipt_storage.sql` — private receipt bucket,
    verified upload metadata, record linking, short-lived access, receipt-status
    synchronization, audit events, and reason-required voiding.
+8. `supabase/migrations/0008_mileage_workflow.sql` — multiple vehicles, annual
+   odometers, versioned trip logs, the 2026 `$0.725/mile` default, exact
+   deductions, reason-required voiding, audit events, and sync receipts.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -105,6 +108,9 @@ Implemented foundation and first finance vertical:
   reconciliation, and reason-required ignoring
 - private PDF/image receipt uploads with byte-level type, size, and checksum
   verification before bookkeeping records are marked attached
+- vehicle and trip list/detail/create/update/void APIs with annual and per-trip
+  odometers, optional client/property links, parking and tolls, custom-rate
+  preservation, and exact server-authoritative mileage deductions
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design
