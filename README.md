@@ -34,6 +34,9 @@ Apply migrations in order:
 4. `supabase/migrations/0004_directory_workflow.sql` — versioned client and
    property creation, replacement updates, reason-required voiding, audit
    events, and offline-sync receipts.
+5. `supabase/migrations/0005_ledger_workflow.sql` — versioned categories and
+   financial transactions, exact-cent split lines, reference validation,
+   reason-required voiding, audit events, and offline-sync receipts.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -89,6 +92,8 @@ Implemented foundation and first finance vertical:
 - authenticated annual workspace summary API
 - authenticated client and property list/detail/create/update/void APIs
 - optimistic record-version checks for safe concurrent directory edits
+- authenticated category and transaction list/detail/create/update/void APIs
+- exact-cent transaction splits and cross-workspace reference protection
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design
