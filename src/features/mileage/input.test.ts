@@ -1,0 +1,6 @@
+import assert from "node:assert/strict";import test from "node:test";import{MileageInputError,parseMileageTripInput,parseVehicleInput}from"./input.ts";
+const vehicle="10000000-0000-4000-8000-000000000001";
+test("vehicle validates annual odometers",()=>{const v=parseVehicleInput({name:"Primary SUV",odometerYear:2026,beginningOdometer:"10000",endingOdometer:"12000",isPrimary:true});assert.equal(v.beginningOdometer,"10000.00");assert.equal(v.odometerYear,2026);});
+test("trip defaults to the 2026 rate and reconciles odometers",()=>{const t=parseMileageTripInput({vehicleId:vehicle,tripDate:"2026-08-19",purpose:"Listing appointment",startOdometer:"100",endOdometer:"112.5",miles:"12.5"});assert.equal(t.mileageRate,"0.7250");assert.equal(t.rateSource,"default");});
+test("trip preserves a custom rate",()=>{const t=parseMileageTripInput({vehicleId:vehicle,tripDate:"2026-08-19",purpose:"Showing",miles:"10",mileageRate:"0.70"});assert.equal(t.mileageRate,"0.7000");assert.equal(t.rateSource,"custom");});
+test("trip rejects mismatched odometers",()=>assert.throws(()=>parseMileageTripInput({vehicleId:vehicle,tripDate:"2026-08-19",purpose:"Showing",startOdometer:"1",endOdometer:"11",miles:"9"}),MileageInputError));

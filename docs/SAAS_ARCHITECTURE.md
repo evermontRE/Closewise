@@ -150,6 +150,12 @@ TypeScript modules in this order:
 Each module must have fixture-based parity tests against known legacy results.
 No dashboard component should duplicate business formulas.
 
+The mileage vertical is implemented in `0008_mileage_workflow.sql`. The 2026
+default is `$0.725/mile`; rates retain their year and source so a deliberate
+user override is never silently replaced. Vehicles retain annual beginning and
+ending odometers, trips may retain their own odometer pair, and the server
+computes the authoritative deduction with decimal arithmetic.
+
 ## Security requirements before beta
 
 - RLS tests prove that users cannot read or mutate another workspace.
