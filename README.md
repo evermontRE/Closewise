@@ -51,6 +51,23 @@ For local webhook testing:
 stripe listen --forward-to localhost:3000/api/stripe/webhook
 ```
 
+## Database validation
+
+Install the Supabase CLI and a Docker-compatible runtime, then run:
+
+```bash
+supabase db start
+supabase test db
+supabase db lint --level error
+supabase stop --no-backup
+```
+
+The database tests rebuild the schema from the tracked migrations and verify
+core tables, commission functions, role permissions, tenant isolation,
+read-only accountant access, append-only audit behavior, and atomic commission
+persistence. The same validation runs automatically for Supabase changes in
+pull requests.
+
 ## Current status
 
 Implemented foundation and first finance vertical:

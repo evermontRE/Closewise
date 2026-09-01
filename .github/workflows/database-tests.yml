@@ -1,0 +1,38 @@
+name: Database validation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/database-tests.yml"
+      - "supabase/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  migrations-and-rls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start clean local database and apply migrations
+        run: supabase db start
+
+      - name: Run database tests
+        run: supabase test db
+
+      - name: Lint database functions
+        run: supabase db lint --level error
+
+      - name: Stop local database
+        if: always()
+        run: supabase stop --no-backup
