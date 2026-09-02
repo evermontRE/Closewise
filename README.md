@@ -49,6 +49,9 @@ Apply migrations in order:
 9. `supabase/migrations/0009_recurring_obligations.sql` — subscriptions and
    recurring bills, exact annualized cost, renewal schedules and confirmations,
    reminders, reason-required voiding, audit events, and sync receipts.
+10. `supabase/migrations/0010_tax_reserve_workflow.sql` — estimated tax-payment
+    records, tax-reserve transfers, signed reserve balances, versioned edits,
+    reason-required voiding, audit events, and sync receipts.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -116,6 +119,8 @@ Implemented foundation and first finance vertical:
   preservation, and exact server-authoritative mileage deductions
 - recurring-expense and subscription APIs with renewal history, due/overdue
   summaries, autopay/reminder metadata, and bank-first duplicate protection
+- tax-payment and tax-reserve APIs with quarterly/jurisdiction metadata, exact
+  signed reserve summaries, and explicit planning-only notices
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design
