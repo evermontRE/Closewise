@@ -168,6 +168,13 @@ auditable cash records. Reserve summaries retain negative balances when
 underfunded and explicitly state that they are planning records—not tax advice,
 a tax calculation, tax-return preparation, or filing.
 
+Tax planning is implemented in `0011_tax_planning_safe_harbor.sql` and the
+server-side tax-planning domain module. Rates, deductions, filing status, and
+prior-year figures remain explicit user-controlled assumptions. The API can
+compare 90% of the current planning estimate with an eligible prior-year
+100%/110% target, but it does not determine tax liability, prepare a return,
+or file with a taxing authority.
+
 ## Security requirements before beta
 
 - RLS tests prove that users cannot read or mutate another workspace.
