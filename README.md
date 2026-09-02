@@ -55,6 +55,9 @@ Apply migrations in order:
 11. `supabase/migrations/0011_tax_planning_safe_harbor.sql` — versioned,
     user-controlled planning assumptions, prior-year safe-harbor inputs,
     optimistic concurrency, audit events, and sync receipts.
+12. `supabase/migrations/0012_budget_goals_forecast.sql` — annual financial
+    goals, category/month operating budgets, exact-cent plan mutations,
+    optimistic concurrency, audit events, and sync receipts.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -127,6 +130,9 @@ Implemented foundation and first finance vertical:
 - tax-planning API with exact-cent estimates, reserve coverage and gap,
   current-year and prior-year safe-harbor comparisons, eligibility warnings,
   and versioned owner/admin assumptions
+- versioned annual goals and monthly operating budgets, plus a 1–12 month cash
+  forecast combining actual activity, expected commissions, budget lines, and
+  recurring obligations
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design

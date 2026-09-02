@@ -175,6 +175,12 @@ compare 90% of the current planning estimate with an eligible prior-year
 100%/110% target, but it does not determine tax liability, prepare a return,
 or file with a taxing authority.
 
+Goals, budgets, and cash forecasting are implemented in
+`0012_budget_goals_forecast.sql` and the server-side forecast domain module.
+Forecasts use recorded cash activity, expected commission dates, monthly
+budgets, and recurring obligations. They preserve negative projected balances
+and identify the first negative month instead of hiding cash risk.
+
 ## Security requirements before beta
 
 - RLS tests prove that users cannot read or mutate another workspace.
