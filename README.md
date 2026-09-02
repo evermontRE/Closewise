@@ -61,6 +61,9 @@ Apply migrations in order:
 13. `supabase/migrations/0013_reporting_exports.sql` — append-only export
     history, tenant-readable audit metadata, content hashes, and service-only
     export recording.
+14. `supabase/migrations/0014_offline_sync_legacy_import.sql` — staged legacy
+    backup migration, permanent duplicate keys, per-record results, control
+    totals, tenant isolation, and plain-language completion reports.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -140,6 +143,10 @@ Implemented foundation and first finance vertical:
   commission, quarterly-organizer, and Schedule C mapping reports
 - formula-injection-safe CSV, Excel-compatible spreadsheet XML, stable
   print/PDF data contracts, and append-only export audit history
+- IndexedDB response cache, durable device-scoped mutation queue, automatic
+  reconnect synchronization, bounded retries, and explicit conflict states
+- legacy Finance Studio JSON preview and commit workflow with schema checks,
+  duplicate fingerprints, staged records, control totals, and readable reports
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design
