@@ -1,0 +1,9 @@
+import { createClient } from "@/lib/supabase/server";
+import PrivacyRequestForm from "./privacy-request-form";
+
+export default async function PrivacyRequestsPage() {
+  const supabase = await createClient();
+  const { data: workspaces } = await supabase.from("workspaces").select("id,name").order("created_at");
+  const { data: requests } = await supabase.from("privacy_requests").select("id,request_type,status,submitted_at").order("submitted_at", { ascending: false });
+  return <div className="mx-auto max-w-3xl"><p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">Privacy controls</p><h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em]">Your data requests</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600">Request a copy, correction, restriction, or deletion of information associated with your account. We verify identity before fulfilling a request.</p><div className="mt-8 grid gap-8 md:grid-cols-[1.1fr_.9fr]"><PrivacyRequestForm workspaces={workspaces ?? []} /><section><h2 className="text-sm font-semibold">Request history</h2><div className="mt-3 space-y-3">{requests?.length ? requests.map((item) => <div key={item.id} className="rounded-xl border border-zinc-200 bg-white p-4"><div className="flex items-center justify-between gap-4"><span className="text-sm font-medium capitalize">{item.request_type}</span><span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs capitalize text-zinc-600">{String(item.status).replaceAll("_", " ")}</span></div><p className="mt-2 text-xs text-zinc-500">Submitted {new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(item.submitted_at))}</p></div>) : <p className="rounded-xl border border-dashed border-zinc-300 p-5 text-sm text-zinc-500">No privacy requests submitted.</p>}</div></section></div></div>;
+}

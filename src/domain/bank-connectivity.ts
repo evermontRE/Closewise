@@ -29,7 +29,7 @@ export interface NormalizedProviderTransaction {
   pendingTransactionId: string | null;
   providerCategory: string | null;
   fingerprint: string;
-  rawData: ProviderTransaction;
+  rawData: Record<string, unknown>;
 }
 
 export function normalizePlaidTransaction(workspaceId: string, value: ProviderTransaction): NormalizedProviderTransaction {
@@ -51,7 +51,22 @@ export function normalizePlaidTransaction(workspaceId: string, value: ProviderTr
     pendingTransactionId: value.pending_transaction_id ? String(value.pending_transaction_id) : null,
     providerCategory: value.personal_finance_category?.detailed ?? value.personal_finance_category?.primary ?? null,
     fingerprint: createHash("sha256").update(`${workspaceId}\0plaid\0${value.transaction_id}`).digest("hex"),
-    rawData: value,
+    // Keep only fields needed to explain and reconcile the imported line. Plaid
+    // may add location, counterparties, logos, or other data that Finance Studio
+    // does not need; those fields must not be retained by default.
+    rawData: {
+      transaction_id: value.transaction_id,
+      account_id: value.account_id,
+      date: value.date,
+      authorized_date: value.authorized_date ?? null,
+      name: String(value.name || "").slice(0, 500),
+      merchant_name: value.merchant_name ? String(value.merchant_name).slice(0, 200) : null,
+      amount: value.amount,
+      iso_currency_code: value.iso_currency_code ?? null,
+      pending: Boolean(value.pending),
+      pending_transaction_id: value.pending_transaction_id ?? null,
+      personal_finance_category: value.personal_finance_category ?? null,
+    },
   };
 }
 

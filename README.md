@@ -67,6 +67,9 @@ Apply migrations in order:
 15. `supabase/migrations/0015_bank_connectivity.sql` — provider-neutral bank
     connections, encrypted Plaid credentials, incremental transaction cursors,
     verified webhook history, connection health, and reconciliation suggestions.
+16. `supabase/migrations/0016_security_compliance.sql` — durable sensitive-action
+    throttling, privacy-request records, bank-credential destruction, and
+    scheduled retention cleanup.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -153,6 +156,9 @@ Implemented foundation and first finance vertical:
 - Plaid Link bank connections with encrypted access tokens, signed webhook
   verification, cursor-based transaction updates, stable provider deduplication,
   connection-health states, and approval-first reconciliation suggestions
+- security headers, cross-site mutation protection, minimized provider payloads,
+  durable throttling, customer bank disconnection, privacy-request tracking,
+  retention automation, and an operational security policy/control register
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design

@@ -1,0 +1,18 @@
+import Link from "next/link";
+
+export const metadata = { title: "Privacy Policy | Finance Studio", description: "How Finance Studio collects, uses, protects, and deletes customer information." };
+
+const sections = [
+  ["Information we collect", "We collect account and business profile information you provide, application usage and security records, and financial records you enter or import. If you connect an institution through Plaid, we receive the accounts you select, limited account details, balances supplied with those accounts, and transaction history. Evermont does not receive your bank password."],
+  ["How we use information", "We use this information to provide bookkeeping organization, bank-feed review, categorization, reconciliation, cash-flow views, tax-planning estimates, reports, account support, fraud prevention, and service security. Finance Studio does not initiate bank payments through Plaid."],
+  ["Plaid", "Plaid provides the account-linking experience. Plaid's handling of information is governed by its own privacy disclosures. Finance Studio requests Transactions access and uses Plaid data only to provide the features described above."],
+  ["Sharing", "We do not sell personal or financial information. We disclose information to contracted service providers only as needed to operate authentication, hosting, database, payments, support, and bank connectivity, or when required by law."],
+  ["Security", "We use access controls, tenant isolation, encrypted transport, encrypted bank-access credentials, verified webhook signatures, audit records, request throttling, and restricted administrative access. No system can guarantee absolute security."],
+  ["Retention", "Active customer records are retained while an account is open. Bank-access credentials are destroyed when a bank is disconnected. Operational, billing, security, backup, and legally required records may be retained for limited periods described in our retention schedule."],
+  ["Your choices", "You can disconnect a financial institution from Finance Studio. Authenticated users may request access, export, correction, restriction, or deletion. We may verify identity and retain records that must be preserved for security, fraud prevention, legal, tax, or contractual obligations."],
+  ["Contact", "For privacy or security questions, contact eva@evermontre.com. A dedicated privacy and security mailbox will replace this address before general availability."],
+];
+
+export default function PrivacyPage() {
+  return <main className="min-h-screen bg-[#f4f8f6] px-5 py-12 text-zinc-900"><article className="mx-auto max-w-3xl rounded-3xl border border-emerald-950/10 bg-white p-7 shadow-sm sm:p-12"><p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">Evermont Finance Studio</p><h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em]">Privacy Policy</h1><p className="mt-3 text-sm text-zinc-500">Effective September 2, 2026 · Prelaunch policy</p><p className="mt-7 leading-7 text-zinc-700">This policy explains how Evermont Realty Partners LLC handles information when providing Finance Studio. It should be reviewed by qualified counsel before general availability.</p><div className="mt-9 space-y-8">{sections.map(([title, body]) => <section key={title}><h2 className="text-lg font-semibold">{title}</h2><p className="mt-2 leading-7 text-zinc-600">{body}</p></section>)}</div><div className="mt-10 border-t border-zinc-200 pt-6 text-sm"><Link className="font-semibold text-emerald-800 underline underline-offset-4" href="/security">Read the Security Overview</Link></div></article></main>;
+}
