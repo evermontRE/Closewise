@@ -8,6 +8,8 @@ insert into auth.users(id,email,raw_app_meta_data,raw_user_meta_data) values
 ('1b000000-0000-4000-8000-000000000002','plan-member@example.test','{}','{}');
 insert into public.workspaces(id,name,owner_id) values
 ('2b000000-0000-4000-8000-000000000001','Planning Workspace','1b000000-0000-4000-8000-000000000001');
+insert into public.workspace_settings(workspace_id) values
+('2b000000-0000-4000-8000-000000000001');
 insert into public.workspace_members(workspace_id,user_id,role) values
 ('2b000000-0000-4000-8000-000000000001','1b000000-0000-4000-8000-000000000002','member');
 
