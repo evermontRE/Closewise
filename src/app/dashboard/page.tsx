@@ -33,6 +33,9 @@ export default async function DashboardPage() {
           <li key={w.id} className="rounded-lg border border-zinc-200 p-4">
             <p className="font-medium">{w.name}</p>
             <div className="mt-2 flex gap-4 text-sm">
+              <Link href={`/dashboard/workspaces/${w.id}/banking`} className="font-medium text-emerald-800 underline underline-offset-4">
+                Connected banks
+              </Link>
               <Link href={`/dashboard/workspaces/${w.id}/sync`} className="font-medium text-emerald-800 underline underline-offset-4">
                 Sync &amp; Migration
               </Link>
