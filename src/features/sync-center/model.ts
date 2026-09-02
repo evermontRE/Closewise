@@ -25,7 +25,9 @@ export function readLegacyFile(text: string, size: number) {
 }
 
 export function mutationTitle(item: Pick<OfflineMutation, "method" | "url">) {
-  const endpoint = item.url.split("?")[0].split("/").filter(Boolean).at(-1) ?? "record";
+  const segments = item.url.split("?")[0].split("/").filter(Boolean);
+  const last = segments.at(-1) ?? "record";
+  const endpoint = /^\d+$/.test(last) || /^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(last) ? segments.at(-2) ?? "record" : last;
   const words = endpoint.replaceAll("-", " ");
   const action = item.method === "POST" ? "Create" : item.method === "DELETE" ? "Remove" : "Update";
   return `${action} ${words}`;
