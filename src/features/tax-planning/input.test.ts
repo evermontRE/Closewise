@@ -1,0 +1,3 @@
+import assert from"node:assert/strict";import test from"node:test";import{TaxPlanningInputError,parseTaxPlanningInput}from"./input.ts";
+test("normalizes user-controlled tax assumptions",()=>{const a=parseTaxPlanningInput({federalRatePct:20,stateRatePct:5,selfEmploymentRatePct:15.3,selfEmploymentTaxableBasePct:92.35,qbiDeductionPct:20,deductHalfSelfEmploymentTax:true,safeHarborEnabled:true,priorYearAgi:"120000",priorYearTotalTax:"10000",priorYearFiled:true,priorYearFullTwelveMonths:true});assert.equal(a.priorYearAgi,"120000.00");assert.equal(a.marriedFilingSeparately,false);});
+test("rejects rates outside the planning range",()=>assert.throws(()=>parseTaxPlanningInput({federalRatePct:101}),TaxPlanningInputError));

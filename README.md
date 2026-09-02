@@ -52,6 +52,9 @@ Apply migrations in order:
 10. `supabase/migrations/0010_tax_reserve_workflow.sql` — estimated tax-payment
     records, tax-reserve transfers, signed reserve balances, versioned edits,
     reason-required voiding, audit events, and sync receipts.
+11. `supabase/migrations/0011_tax_planning_safe_harbor.sql` — versioned,
+    user-controlled planning assumptions, prior-year safe-harbor inputs,
+    optimistic concurrency, audit events, and sync receipts.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -121,6 +124,9 @@ Implemented foundation and first finance vertical:
   summaries, autopay/reminder metadata, and bank-first duplicate protection
 - tax-payment and tax-reserve APIs with quarterly/jurisdiction metadata, exact
   signed reserve summaries, and explicit planning-only notices
+- tax-planning API with exact-cent estimates, reserve coverage and gap,
+  current-year and prior-year safe-harbor comparisons, eligibility warnings,
+  and versioned owner/admin assumptions
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design
