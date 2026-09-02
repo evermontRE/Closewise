@@ -64,6 +64,9 @@ Apply migrations in order:
 14. `supabase/migrations/0014_offline_sync_legacy_import.sql` — staged legacy
     backup migration, permanent duplicate keys, per-record results, control
     totals, tenant isolation, and plain-language completion reports.
+15. `supabase/migrations/0015_bank_connectivity.sql` — provider-neutral bank
+    connections, encrypted Plaid credentials, incremental transaction cursors,
+    verified webhook history, connection health, and reconciliation suggestions.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -147,6 +150,9 @@ Implemented foundation and first finance vertical:
   reconnect synchronization, bounded retries, and explicit conflict states
 - legacy Finance Studio JSON preview and commit workflow with schema checks,
   duplicate fingerprints, staged records, control totals, and readable reports
+- Plaid Link bank connections with encrypted access tokens, signed webhook
+  verification, cursor-based transaction updates, stable provider deduplication,
+  connection-health states, and approval-first reconciliation suggestions
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design
