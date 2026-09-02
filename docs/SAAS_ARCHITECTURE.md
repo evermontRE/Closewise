@@ -162,6 +162,12 @@ commitments, retains renewal history, and computes annualized cost exactly.
 Confirming a renewal advances its schedule but does not create a ledger
 transaction; bank review and reconciliation remain the posting boundary.
 
+The tax-cash vertical is implemented in `0010_tax_reserve_workflow.sql`.
+Estimated payments and transfers into or out of the reserve remain separate,
+auditable cash records. Reserve summaries retain negative balances when
+underfunded and explicitly state that they are planning records—not tax advice,
+a tax calculation, tax-return preparation, or filing.
+
 ## Security requirements before beta
 
 - RLS tests prove that users cannot read or mutate another workspace.
