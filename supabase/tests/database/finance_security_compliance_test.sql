@@ -35,7 +35,7 @@ reset role;
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub','18000000-0000-4000-8000-000000000001',true);
-select is((select count(*)::integer from public.api_rate_limits),0,'rate-limit state is never client-readable');
+select throws_ok($$select count(*) from public.api_rate_limits$$,'42501',null,'rate-limit state is never client-readable');
 select is((select count(*)::integer from public.privacy_requests),1,'requester sees only their privacy requests');
 select set_config('request.jwt.claim.sub','18000000-0000-4000-8000-000000000002',true);
 select is((select count(*)::integer from public.privacy_requests),1,'another requester sees only their own requests');
