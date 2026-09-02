@@ -58,6 +58,9 @@ Apply migrations in order:
 12. `supabase/migrations/0012_budget_goals_forecast.sql` — annual financial
     goals, category/month operating budgets, exact-cent plan mutations,
     optimistic concurrency, audit events, and sync receipts.
+13. `supabase/migrations/0013_reporting_exports.sql` — append-only export
+    history, tenant-readable audit metadata, content hashes, and service-only
+    export recording.
 
 The second migration also replaces the initial recursive membership policies
 with security-definer membership checks and expands workspace roles to owner,
@@ -133,6 +136,10 @@ Implemented foundation and first finance vertical:
 - versioned annual goals and monthly operating budgets, plus a 1–12 month cash
   forecast combining actual activity, expected commissions, budget lines, and
   recurring obligations
+- server-authoritative profit-and-loss, income/expense, category, cash-flow,
+  commission, quarterly-organizer, and Schedule C mapping reports
+- formula-injection-safe CSV, Excel-compatible spreadsheet XML, stable
+  print/PDF data contracts, and append-only export audit history
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design

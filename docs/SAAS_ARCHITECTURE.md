@@ -181,6 +181,13 @@ Forecasts use recorded cash activity, expected commission dates, monthly
 budgets, and recurring obligations. They preserve negative projected balances
 and identify the first negative month instead of hiding cash risk.
 
+Reporting and exports are implemented in `0013_reporting_exports.sql` and the
+server-side reporting domain module. JSON reports, CSV, spreadsheet XML, and
+print/PDF data all originate from the same normalized report document. Text
+cells that could be interpreted as spreadsheet formulas are neutralized.
+Export history stores hashes and metadata rather than duplicate financial
+payloads and remains append-only.
+
 ## Security requirements before beta
 
 - RLS tests prove that users cannot read or mutate another workspace.
