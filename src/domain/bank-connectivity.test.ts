@@ -17,3 +17,13 @@ test("builds high-confidence suggestions only for exact amounts near the bank da
   assert.equal(reconciliationScore({ bankAmount: "2500.00", bankDate: "2026-09-02", bankDescription: "Commission", targetAmount: "2499.99", targetDate: "2026-09-02" }), 0);
   assert.equal(reconciliationScore({ bankAmount: "2500.00", bankDate: "2026-09-30", bankDescription: "Commission", targetAmount: "2500", targetDate: "2026-09-01" }), 0);
 });
+
+test("retains only the Plaid fields needed for bookkeeping", () => {
+  const transaction = normalizePlaidTransaction("workspace", {
+    transaction_id: "plaid-3", account_id: "account-1", date: "2026-09-02", name: "Closing",
+    amount: -5000, location: { address: "Sensitive location" }, website: "https://merchant.example",
+  });
+  assert.equal(transaction.rawData.transaction_id, "plaid-3");
+  assert.equal("location" in transaction.rawData, false);
+  assert.equal("website" in transaction.rawData, false);
+});

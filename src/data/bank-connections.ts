@@ -6,12 +6,13 @@ import { decryptBankToken, encryptBankToken } from "@/lib/banking/token-vault";
 import { PlaidError, plaidRequest, plaidWebhookUrl } from "@/lib/banking/plaid";
 
 type PlaidAccount = { account_id: string; name: string; official_name?: string | null; mask?: string | null; type: string; subtype: string; balances: { current?: number | null; available?: number | null; iso_currency_code?: string | null } };
-type ConnectionRow = { id: string; workspace_id: string; access_token_ciphertext: string; sync_cursor: string | null; provider_item_id: string };
+type ConnectionRow = { id: string; workspace_id: string; access_token_ciphertext: string | null; sync_cursor: string | null; provider_item_id: string };
 
 export async function createPlaidLinkToken(input: { workspaceId: string; userId: string; connectionId?: string | null }) {
   let accessToken: string | undefined;
   if (input.connectionId) {
     const row = await privateConnection(input.workspaceId, input.connectionId);
+    if (!row.access_token_ciphertext) throw new Error("Bank connection is disconnected");
     accessToken = decryptBankToken(row.access_token_ciphertext);
   }
   const response = await plaidRequest<{ link_token: string; expiration: string }>("/link/token/create", {
@@ -55,6 +56,7 @@ export async function synchronizePlaidConnection(connectionId: string, workspace
   if (error || !data) throw new Error("Bank connection not found");
   const connection = data as ConnectionRow;
   try {
+    if (!connection.access_token_ciphertext) throw new Error("Bank connection is disconnected");
     const accessToken = decryptBankToken(connection.access_token_ciphertext);
     const originalCursor = connection.sync_cursor;
     let cursor = originalCursor;
@@ -109,6 +111,23 @@ export async function updatePlaidItemHealth(itemId: string, code: string, payloa
   const errorCode = String(error.error_code ?? code);
   const actionRequired = ["ERROR", "PENDING_EXPIRATION", "USER_PERMISSION_REVOKED"].includes(code) || ["ITEM_LOGIN_REQUIRED", "PENDING_EXPIRATION", "USER_PERMISSION_REVOKED"].includes(errorCode);
   await createAdminClient().from("bank_connections").update({ status: actionRequired ? "action_required" : "error", error_code: errorCode, error_message: String(error.error_message ?? "This bank connection needs attention.").slice(0, 500), last_webhook_at: new Date().toISOString(), updated_at: new Date().toISOString() }).eq("provider", "plaid").eq("provider_item_id", itemId);
+}
+
+export async function disconnectPlaidConnection(input: { workspaceId: string; connectionId: string; actorId: string }) {
+  const connection = await privateConnection(input.workspaceId, input.connectionId);
+  if (!connection.access_token_ciphertext) return { id: input.connectionId, status: "disconnected", credentialDestroyed: true };
+  const accessToken = decryptBankToken(connection.access_token_ciphertext);
+  try {
+    await plaidRequest("/item/remove", { access_token: accessToken });
+  } catch (cause) {
+    if (!(cause instanceof PlaidError) || !["INVALID_ACCESS_TOKEN", "ITEM_NOT_FOUND"].includes(cause.code)) throw cause;
+  }
+  const { data, error } = await createAdminClient().rpc("finalize_bank_disconnection", {
+    p_connection_id: input.connectionId,
+    p_actor_id: input.actorId,
+  });
+  if (error) throw new Error(`Unable to finalize bank disconnection: ${error.message}`);
+  return data;
 }
 
 async function privateConnection(workspaceId: string, connectionId: string) {
