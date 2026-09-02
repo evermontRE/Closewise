@@ -19,6 +19,6 @@ This register separates implemented code controls from external deployment actio
 | Backup restoration | Supabase backup plan and documented restore test | **Required external action** |
 | Security mailbox | Monitored `security@evermontre.com` or equivalent | **Required external action** |
 | Legal review | Privacy, terms, retention, and incident notices reviewed by counsel | **Required external action** |
-| Vulnerability monitoring | GitHub dependency review/Dependabot and alert-owner assignment | **Required/CI configuration** |
+| Vulnerability monitoring | Production `npm audit` and Dependabot are active. Enable GitHub Dependency Graph, then set the repository variable `DEPENDENCY_REVIEW_ENABLED=true` to enforce pull-request dependency review. Assign an alert owner. | **Partially implemented/external action required** |
 
 The Security Lead must date and attach evidence for every required action before answering that the program is fully operational in a production questionnaire.
