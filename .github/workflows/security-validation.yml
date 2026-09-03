@@ -32,6 +32,8 @@ jobs:
           ENTITLEMENT_SIGNING_SECRET: build-placeholder
           BANK_TOKEN_ENCRYPTION_KEY: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
           CRON_SECRET: build-placeholder
+          HEALTHCHECK_SECRET: build-placeholder
+          OPERATIONS_SECRET: build-placeholder
 
   dependency-review:
     if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'

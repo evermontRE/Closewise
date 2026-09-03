@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { planFromStripePriceId } from "@/lib/plans";
+import { logOperation } from "@/lib/operations/logger";
 
 export async function POST(request: Request) {
   const body = await request.text();
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     p_event_id: event.id, p_event_type: event.type, p_livemode: event.livemode,
   });
   if (claimError) {
-    console.error("Stripe webhook claim failed", claimError.message);
+    logOperation("error", "stripe_webhook_claim_failed", { eventId: event.id, eventType: event.type, error: claimError.message });
     return NextResponse.json({ error: "Webhook processing unavailable" }, { status: 500 });
   }
   if (!claimed) return NextResponse.json({ received: true, duplicate: true });
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Processing failed";
     await admin.rpc("complete_stripe_webhook_event", { p_event_id: event.id, p_succeeded: false, p_error_message: message });
-    console.error("Stripe webhook processing failed", event.id, event.type, message);
+    logOperation("error", "stripe_webhook_processing_failed", { eventId: event.id, eventType: event.type, error: message });
     return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
   }
 }

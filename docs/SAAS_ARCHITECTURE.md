@@ -283,7 +283,8 @@ recalculation.
 - Stripe lifecycle hardening and plan enforcement (implemented server contract)
 - Admin/support tooling (implemented with isolated staff roles, bounded review,
   suspension controls, internal notes, and immutable auditing)
-- Monitoring, backups, privacy workflows, and rate limits
+- Monitoring, health checks, durable alerts, backup verification, privacy
+  workflows, and rate limits (implemented server contract)
 - Accessibility, responsive, performance, and cross-browser QA
 - Beta launch and production-readiness review
 
