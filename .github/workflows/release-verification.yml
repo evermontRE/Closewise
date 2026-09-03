@@ -1,0 +1,30 @@
+name: Release verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_url:
+        description: Exact Vercel preview or production URL to verify
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify-deployment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify deployed release
+        run: npm run verify:deployment
+        env:
+          DEPLOYMENT_URL: ${{ inputs.deployment_url }}
+          HEALTHCHECK_SECRET: ${{ secrets.HEALTHCHECK_SECRET }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
