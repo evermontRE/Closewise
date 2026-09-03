@@ -16,7 +16,7 @@ export function SubscribeButton({ workspaceId, plan }: { workspaceId: string; pl
         setLoading(true);
         const res = await fetch("/api/stripe/checkout", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "Idempotency-Key": crypto.randomUUID() },
           body: JSON.stringify({ workspaceId, plan }),
         });
         const body = await res.json();
