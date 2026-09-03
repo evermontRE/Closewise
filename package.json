@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:smoke": "node scripts/smoke-test.mjs",
+    "verify:deployment": "node scripts/verify-deployment.mjs",
     "test": "node --test --experimental-strip-types src/domain/*.test.ts src/features/**/*.test.ts"
   },
   "dependencies": {

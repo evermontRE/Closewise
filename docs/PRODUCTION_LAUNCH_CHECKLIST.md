@@ -5,7 +5,7 @@ This checklist separates implemented application code from configuration that mu
 ## Supabase
 
 - Create separate production and preview projects.
-- Apply every migration through `0019_production_reliability.sql` and run `supabase test db` plus `supabase db lint --level error`.
+- Apply every migration through `0020_customer_onboarding.sql` and run `supabase test db` plus `supabase db lint --level error`.
 - Configure allowed authentication redirect URLs and production email templates.
 - Store the production URL and anon key in Vercel; store the service-role key only as a sensitive server variable.
 - Enable an appropriate managed-backup plan and confirm the retention period.
@@ -23,6 +23,7 @@ This checklist separates implemented application code from configuration that mu
 - Enable deployment protection for previews that contain real data.
 - Configure runtime-log retention or an external error-monitoring integration before public launch.
 - Establish preview verification followed by promotion of the same tested artifact; document rollback ownership.
+- Run the GitHub Release verification workflow against the exact preview URL before promotion.
 
 ## Stripe
 
@@ -54,3 +55,4 @@ This checklist separates implemented application code from configuration that mu
 - Complete accessibility, browser, performance, billing, bank-sync, backup/restore, and tenant-isolation tests.
 - Run a private beta, resolve launch-blocking defects, freeze the release candidate, and record approval.
 - Save the production deployment ID, migration version, test report, vendor configuration evidence, and rollback target.
+- Complete every manual action in `docs/GO_LIVE_HANDOFF.md`; application code alone cannot complete vendor verification or legal approval.
