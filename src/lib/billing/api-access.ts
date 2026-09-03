@@ -31,7 +31,8 @@ export async function authorizeWorkspaceApi(request: NextRequest) {
     .eq("workspace_id", workspaceId)
     .maybeSingle();
   const isExport = request.nextUrl.pathname === `/api/workspaces/${workspaceId}/exports`;
-  if (operational?.status === "suspended" && !isExport) {
+  const isOnboarding = request.nextUrl.pathname === `/api/workspaces/${workspaceId}/onboarding`;
+  if (operational?.status === "suspended" && !isExport && !isOnboarding) {
     return NextResponse.json({ error: "This workspace is suspended. Contact support for assistance.", code: "workspace_suspended" }, { status: 423 });
   }
 
@@ -47,10 +48,10 @@ export async function authorizeWorkspaceApi(request: NextRequest) {
     gracePeriodEnd: subscription?.grace_period_end ?? null,
   });
 
-  if (access.mode === "billing_only" && !isExport) {
+  if (access.mode === "billing_only" && !isExport && !isOnboarding) {
     return NextResponse.json({ error: "A subscription is required to use this workspace.", code: "subscription_required", access }, { status: 402 });
   }
-  if (access.mode === "read_only" && isMutationMethod(request.method) && !isExport) {
+  if (access.mode === "read_only" && isMutationMethod(request.method) && !isExport && !isOnboarding) {
     return NextResponse.json({ error: "This workspace is temporarily read-only while billing needs attention.", code: "billing_read_only", access }, { status: 402 });
   }
 

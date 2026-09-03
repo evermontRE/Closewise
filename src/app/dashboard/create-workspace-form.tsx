@@ -23,11 +23,12 @@ export default function CreateWorkspaceForm() {
       setMessage(body.error ?? "Something went wrong");
       return;
     }
-    router.refresh();
+    const body = await res.json();
+    router.push(`/dashboard/workspaces/${body.workspace.id}/onboarding`);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-sm flex-col gap-3">
+    <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
       <label className="flex flex-col gap-1 text-sm">
         Workspace name
         <input
@@ -35,13 +36,13 @@ export default function CreateWorkspaceForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. Smith Realty Group"
-          className="rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-900"
+          className="rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
         />
       </label>
       <button
         type="submit"
         disabled={status === "loading"}
-        className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+        className="rounded-xl bg-emerald-800 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-900 disabled:opacity-50"
       >
         {status === "loading" ? "Creating…" : "Create workspace"}
       </button>
