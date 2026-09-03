@@ -30,7 +30,7 @@ export default function SignInPage() {
     <div className="flex flex-1 items-center justify-center px-6 py-24">
       <div className="w-full max-w-sm">
         <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
-        <p className="mt-2 text-sm text-zinc-500">Welcome back to Closewise.</p>
+        <p className="mt-2 text-sm text-zinc-500">Welcome back to Finance Studio.</p>
 
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
           <label className="flex flex-col gap-1 text-sm">
@@ -64,10 +64,7 @@ export default function SignInPage() {
         </form>
 
         <p className="mt-6 text-sm text-zinc-500">
-          Don&apos;t have an account?{" "}
-          <Link href="/sign-up" className="font-medium text-zinc-900 underline">
-            Sign up
-          </Link>
+          Need access?{" "}<Link href="/sign-up" className="font-medium text-zinc-900 underline">View registration status</Link>
         </p>
       </div>
     </div>
