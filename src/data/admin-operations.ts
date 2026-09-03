@@ -72,6 +72,17 @@ export async function getOperationalWorkspace(admin: SupabaseClient, workspaceId
   };
 }
 
+export async function getReliabilityOverview(admin: SupabaseClient) {
+  const [health, alerts, maintenance, backups] = await Promise.all([
+    admin.from("service_health_checks").select("service,status,summary,metrics,checked_at").order("service"),
+    admin.from("operational_alerts").select("alert_key,service,severity,status,summary,occurrence_count,last_seen_at,resolved_at").order("last_seen_at", { ascending: false }).limit(50),
+    admin.from("maintenance_runs").select("id,status,request_id,metrics,error_message,started_at,finished_at").order("started_at", { ascending: false }).limit(20),
+    admin.from("backup_verifications").select("id,backup_reference,verification_type,status,backup_created_at,verified_at,notes").order("verified_at", { ascending: false }).limit(20),
+  ]);
+  for (const result of [health, alerts, maintenance, backups]) if (result.error) throw result.error;
+  return { health: health.data ?? [], alerts: alerts.data ?? [], maintenance: maintenance.data ?? [], backups: backups.data ?? [] };
+}
+
 function first<T>(value: T | T[] | null): T | null {
   return Array.isArray(value) ? value[0] ?? null : value;
 }

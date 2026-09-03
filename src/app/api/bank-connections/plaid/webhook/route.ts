@@ -2,6 +2,7 @@ import { after } from "next/server";
 import { NextResponse } from "next/server";
 import { recordPlaidWebhook, synchronizePlaidItem, updatePlaidItemHealth } from "@/data/bank-connections";
 import { verifyPlaidWebhook } from "@/lib/banking/plaid-webhook";
+import { logOperation, safeError } from "@/lib/operations/logger";
 
 export async function POST(request: Request) {
   const rawBody = await request.text();
@@ -11,6 +12,6 @@ export async function POST(request: Request) {
   const type = String(payload.webhook_type ?? "UNKNOWN"), code = String(payload.webhook_code ?? "UNKNOWN"), itemId = payload.item_id ? String(payload.item_id) : null;
   await recordPlaidWebhook({ itemId, type, code, rawBody, payload });
   if (itemId && type === "ITEM" && code !== "WEBHOOK_UPDATE_ACKNOWLEDGED") await updatePlaidItemHealth(itemId, code, payload as Record<string, unknown>);
-  if (itemId && type === "TRANSACTIONS" && code === "SYNC_UPDATES_AVAILABLE") after(async () => { try { await synchronizePlaidItem(itemId); } catch (cause) { console.error("Plaid webhook synchronization failed", cause instanceof Error ? cause.message : "Unknown error"); } });
+  if (itemId && type === "TRANSACTIONS" && code === "SYNC_UPDATES_AVAILABLE") after(async () => { try { await synchronizePlaidItem(itemId); } catch (cause) { logOperation("error", "plaid_webhook_sync_failed", { webhookType: type, webhookCode: code, error: safeError(cause) }); } });
   return NextResponse.json({ received: true });
 }

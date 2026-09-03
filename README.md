@@ -167,6 +167,9 @@ Implemented foundation and first finance vertical:
 - separate platform staff roles, operational workspace search, internal support
   notes, bounded read-only review sessions, suspension controls, and immutable
   platform audit history
+- public liveness and protected readiness checks, structured server error logs,
+  durable service-health and alert state, idempotent daily maintenance, and
+  explicit Supabase backup/restore verification evidence
 - legacy HTML retained for calculation and workflow parity
 
 Bootstrap the first platform administrator deliberately after that person has
@@ -176,6 +179,11 @@ signed in:
 insert into public.platform_staff (user_id, role)
 select id, 'admin' from auth.users where email = 'your-admin-email@example.com';
 ```
+
+Production configuration that remains outside the repository is tracked in
+[`docs/PRODUCTION_LAUNCH_CHECKLIST.md`](docs/PRODUCTION_LAUNCH_CHECKLIST.md),
+with incident recovery steps in
+[`docs/PRODUCTION_RECOVERY_RUNBOOK.md`](docs/PRODUCTION_RECOVERY_RUNBOOK.md).
 
 The visual product interface is still intentionally minimal so product design
 can evolve independently of the authenticated finance and billing foundation.
