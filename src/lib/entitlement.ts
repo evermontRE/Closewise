@@ -7,7 +7,7 @@ export interface EntitlementRecord {
   licensedEdition: PlanId | null;
   status: SubscriptionStatus;
   accessMode: AccessMode;
-  reason: "subscribed" | "payment_grace" | "payment_required" | "plan_unavailable";
+  reason: "subscribed" | "payment_grace" | "payment_required" | "plan_unavailable" | "workspace_suspended";
   source: "server";
   issuedAt: string;
   expiresAt: string | null;
@@ -33,8 +33,11 @@ export function issueEntitlement(input: {
   status: SubscriptionStatus;
   currentPeriodEnd: string | null;
   gracePeriodEnd: string | null;
+  operationalStatus?: "active" | "suspended";
 }): EntitlementRecord {
-  const access = evaluateSubscriptionAccess({ plan: input.plan, status: input.status, currentPeriodEnd: input.currentPeriodEnd, gracePeriodEnd: input.gracePeriodEnd });
+  const access = input.operationalStatus === "suspended"
+    ? { mode: "billing_only" as const, plan: null, reason: "workspace_suspended" as const, expiresAt: null }
+    : evaluateSubscriptionAccess({ plan: input.plan, status: input.status, currentPeriodEnd: input.currentPeriodEnd, gracePeriodEnd: input.gracePeriodEnd });
   const record: Omit<EntitlementRecord, "sig"> = {
     workspaceId: input.workspaceId,
     licensedEdition: access.plan,

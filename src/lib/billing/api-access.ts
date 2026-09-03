@@ -25,6 +25,16 @@ export async function authorizeWorkspaceApi(request: NextRequest) {
     .maybeSingle();
   if (!membership) return null;
 
+  const { data: operational } = await supabase
+    .from("workspace_operational_status")
+    .select("status")
+    .eq("workspace_id", workspaceId)
+    .maybeSingle();
+  const isExport = request.nextUrl.pathname === `/api/workspaces/${workspaceId}/exports`;
+  if (operational?.status === "suspended" && !isExport) {
+    return NextResponse.json({ error: "This workspace is suspended. Contact support for assistance.", code: "workspace_suspended" }, { status: 423 });
+  }
+
   const { data: subscription } = await supabase
     .from("subscriptions")
     .select("plan,status,current_period_end,grace_period_end")
@@ -37,7 +47,6 @@ export async function authorizeWorkspaceApi(request: NextRequest) {
     gracePeriodEnd: subscription?.grace_period_end ?? null,
   });
 
-  const isExport = request.nextUrl.pathname === `/api/workspaces/${workspaceId}/exports`;
   if (access.mode === "billing_only" && !isExport) {
     return NextResponse.json({ error: "A subscription is required to use this workspace.", code: "subscription_required", access }, { status: 402 });
   }
