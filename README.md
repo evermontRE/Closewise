@@ -164,7 +164,18 @@ Implemented foundation and first finance vertical:
   retention automation, and an operational security policy/control register
 - subscription lifecycle enforcement across workspace APIs, including plan
   modules, payment-required states, and export access during billing recovery
+- separate platform staff roles, operational workspace search, internal support
+  notes, bounded read-only review sessions, suspension controls, and immutable
+  platform audit history
 - legacy HTML retained for calculation and workflow parity
+
+Bootstrap the first platform administrator deliberately after that person has
+signed in:
+
+```sql
+insert into public.platform_staff (user_id, role)
+select id, 'admin' from auth.users where email = 'your-admin-email@example.com';
+```
 
 The visual product interface is still intentionally minimal so product design
 can evolve independently of the authenticated finance and billing foundation.

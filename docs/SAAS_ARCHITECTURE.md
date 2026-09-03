@@ -281,7 +281,8 @@ recalculation.
 ### Phase 4 — commercial readiness
 
 - Stripe lifecycle hardening and plan enforcement (implemented server contract)
-- Admin/support tooling
+- Admin/support tooling (implemented with isolated staff roles, bounded review,
+  suspension controls, internal notes, and immutable auditing)
 - Monitoring, backups, privacy workflows, and rate limits
 - Accessibility, responsive, performance, and cross-browser QA
 - Beta launch and production-readiness review

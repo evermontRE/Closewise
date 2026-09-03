@@ -31,6 +31,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Workspace not found or not a member" }, { status: 404 });
   }
 
+  const { data: operational } = await supabase
+    .from("workspace_operational_status")
+    .select("status")
+    .eq("workspace_id", workspaceId)
+    .maybeSingle();
+
   const plan = subscription.plan && isPlanId(subscription.plan) ? subscription.plan : null;
   const record = issueEntitlement({
     workspaceId,
@@ -38,6 +44,7 @@ export async function GET(request: Request) {
     status: subscription.status as "active" | "trialing" | "past_due" | "canceled" | "none",
     currentPeriodEnd: subscription.current_period_end,
     gracePeriodEnd: subscription.grace_period_end,
+    operationalStatus: operational?.status === "suspended" ? "suspended" : "active",
   });
 
   return NextResponse.json(record);

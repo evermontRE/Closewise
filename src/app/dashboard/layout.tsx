@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "./sign-out-button";
+import PlatformStaffNav from "./platform-staff-nav";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -21,6 +22,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <Link href="/dashboard">Overview</Link>
             <Link href="/dashboard/billing">Billing</Link>
             <Link href="/dashboard/privacy">Privacy</Link>
+            <PlatformStaffNav />
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm text-zinc-600">
