@@ -280,7 +280,7 @@ recalculation.
 
 ### Phase 4 — commercial readiness
 
-- Stripe lifecycle hardening and plan enforcement
+- Stripe lifecycle hardening and plan enforcement (implemented server contract)
 - Admin/support tooling
 - Monitoring, backups, privacy workflows, and rate limits
 - Accessibility, responsive, performance, and cross-browser QA

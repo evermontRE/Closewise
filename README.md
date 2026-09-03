@@ -114,7 +114,10 @@ Implemented foundation and first finance vertical:
 - Supabase authentication
 - workspace membership and role model
 - Stripe subscription scaffold
-- server-side entitlements
+- Stripe Checkout and Customer Portal with owner authorization, idempotency,
+  duplicate-subscription prevention, webhook replay protection, ordered billing
+  state, grace/read-only handling, billing audit history, and server-side plan
+  enforcement
 - Finance Studio domain schema
 - tenant RLS foundation
 - append-only audit model
@@ -159,6 +162,8 @@ Implemented foundation and first finance vertical:
 - security headers, cross-site mutation protection, minimized provider payloads,
   durable throttling, customer bank disconnection, privacy-request tracking,
   retention automation, and an operational security policy/control register
+- subscription lifecycle enforcement across workspace APIs, including plan
+  modules, payment-required states, and export access during billing recovery
 - legacy HTML retained for calculation and workflow parity
 
 The visual product interface is still intentionally minimal so product design

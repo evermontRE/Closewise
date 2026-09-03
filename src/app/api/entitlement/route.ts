@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   // RLS scopes this to the caller's own workspaces — a non-member gets no row.
   const { data: subscription } = await supabase
     .from("subscriptions")
-    .select("plan, status, current_period_end")
+    .select("plan, status, current_period_end, grace_period_end")
     .eq("workspace_id", workspaceId)
     .single();
 
@@ -37,6 +37,7 @@ export async function GET(request: Request) {
     plan,
     status: subscription.status as "active" | "trialing" | "past_due" | "canceled" | "none",
     currentPeriodEnd: subscription.current_period_end,
+    gracePeriodEnd: subscription.grace_period_end,
   });
 
   return NextResponse.json(record);
