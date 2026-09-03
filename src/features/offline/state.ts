@@ -1,0 +1,1 @@
+export function retryDelay(attempts:number){return Math.min(1000*2**Math.max(attempts-1,0),5*60*1000);}export function classifyStatus(status:number){return status===409||status===412||status===428?"conflict":status===401||status===403?"failed":status===429||status>=500?"retry":"failed";}

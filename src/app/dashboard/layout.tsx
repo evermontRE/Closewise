@@ -20,6 +20,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <nav className="flex gap-4 text-sm text-zinc-600">
             <Link href="/dashboard">Overview</Link>
             <Link href="/dashboard/billing">Billing</Link>
+            <Link href="/dashboard/privacy">Privacy</Link>
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm text-zinc-600">
@@ -28,6 +29,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </div>
       </header>
       <main className="flex-1 px-6 py-10">{children}</main>
+      <footer className="flex flex-col gap-2 border-t border-zinc-200 px-6 py-5 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between"><span>Finance Studio · Evermont Realty Partners LLC</span><span className="flex gap-4"><Link href="/privacy">Privacy</Link><Link href="/security">Security</Link></span></footer>
     </div>
   );
 }

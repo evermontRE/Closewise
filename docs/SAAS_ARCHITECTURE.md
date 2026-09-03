@@ -150,6 +150,58 @@ TypeScript modules in this order:
 Each module must have fixture-based parity tests against known legacy results.
 No dashboard component should duplicate business formulas.
 
+The mileage vertical is implemented in `0008_mileage_workflow.sql`. The 2026
+default is `$0.725/mile`; rates retain their year and source so a deliberate
+user override is never silently replaced. Vehicles retain annual beginning and
+ending odometers, trips may retain their own odometer pair, and the server
+computes the authoritative deduction with decimal arithmetic.
+
+The recurring-obligations vertical is implemented in
+`0009_recurring_obligations.sql`. It forecasts subscription and recurring-bill
+commitments, retains renewal history, and computes annualized cost exactly.
+Confirming a renewal advances its schedule but does not create a ledger
+transaction; bank review and reconciliation remain the posting boundary.
+
+The tax-cash vertical is implemented in `0010_tax_reserve_workflow.sql`.
+Estimated payments and transfers into or out of the reserve remain separate,
+auditable cash records. Reserve summaries retain negative balances when
+underfunded and explicitly state that they are planning records—not tax advice,
+a tax calculation, tax-return preparation, or filing.
+
+Tax planning is implemented in `0011_tax_planning_safe_harbor.sql` and the
+server-side tax-planning domain module. Rates, deductions, filing status, and
+prior-year figures remain explicit user-controlled assumptions. The API can
+compare 90% of the current planning estimate with an eligible prior-year
+100%/110% target, but it does not determine tax liability, prepare a return,
+or file with a taxing authority.
+
+Goals, budgets, and cash forecasting are implemented in
+`0012_budget_goals_forecast.sql` and the server-side forecast domain module.
+Forecasts use recorded cash activity, expected commission dates, monthly
+budgets, and recurring obligations. They preserve negative projected balances
+and identify the first negative month instead of hiding cash risk.
+
+Reporting and exports are implemented in `0013_reporting_exports.sql` and the
+server-side reporting domain module. JSON reports, CSV, spreadsheet XML, and
+print/PDF data all originate from the same normalized report document. Text
+cells that could be interpreted as spreadsheet formulas are neutralized.
+Export history stores hashes and metadata rather than duplicate financial
+payloads and remains append-only.
+
+Offline operation uses a browser IndexedDB database for cached GET responses,
+a device identifier, metadata, and an ordered mutation queue. A queued write is
+removed only after a successful server response. Network and server failures
+use bounded retries; optimistic-version responses become explicit conflicts
+that require keeping the server record or retrying the local change against a
+known server version.
+
+Legacy JSON migration is a preview-then-commit workflow implemented in
+`0014_offline_sync_legacy_import.sql`. The original upload is hashed but never
+modified. Supported records are normalized into a staging area, compared with
+permanent legacy IDs and content fingerprints, and then imported with
+per-record status. Source and ready-to-import control totals remain visible in
+the plain-language migration report.
+
 ## Security requirements before beta
 
 - RLS tests prove that users cannot read or mutate another workspace.
@@ -213,9 +265,9 @@ recalculation.
 
 ### Phase 2 — bookkeeping workflow
 
-- Bank CSV import
-- Review, categorization, matching, and reconciliation
-- Receipt storage
+- Bank CSV import (implemented server contract)
+- Review, categorization, matching, and reconciliation (implemented server contract)
+- Receipt storage (implemented server contract)
 - Mileage and recurring expenses
 - Reports and exports
 
@@ -242,4 +294,3 @@ recalculation.
 - Treating estimates as professional advice
 - Moving secrets into client code
 - Merging directly into the repository's default branch
-
