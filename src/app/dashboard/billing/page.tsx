@@ -2,17 +2,17 @@ import { createClient } from "@/lib/supabase/server";
 import { PLAN_ORDER, PLANS } from "@/lib/plans";
 import { SubscribeButton, ManageBillingButton } from "./billing-actions";
 
-export default async function BillingPage() {
+export default async function BillingPage({ searchParams }: { searchParams: Promise<{ workspace?: string }> }) {
+  const { workspace: requestedWorkspace } = await searchParams;
   const supabase = await createClient();
-  const { data: workspace } = await supabase
+  let workspaceQuery = supabase
     .from("workspaces")
-    .select("id, name, stripe_customer_id")
-    .order("created_at", { ascending: true })
-    .limit(1)
-    .single();
+    .select("id, name, stripe_customer_id");
+  workspaceQuery = requestedWorkspace ? workspaceQuery.eq("id", requestedWorkspace) : workspaceQuery.order("created_at", { ascending: true }).limit(1);
+  const { data: workspace } = await workspaceQuery.maybeSingle();
 
   if (!workspace) {
-    return <p className="text-sm text-zinc-500">Create a workspace first from the Overview tab.</p>;
+    return <p className="text-sm text-zinc-500">Create a workspace first from the Workspaces page.</p>;
   }
 
   const { data: subscription } = await supabase
