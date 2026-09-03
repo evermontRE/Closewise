@@ -34,6 +34,9 @@ jobs:
           CRON_SECRET: build-placeholder
           HEALTHCHECK_SECRET: build-placeholder
           OPERATIONS_SECRET: build-placeholder
+          NEXT_PUBLIC_REGISTRATION_MODE: beta
+      - name: Smoke-test public journeys and access boundaries
+        run: npm run test:smoke
 
   dependency-review:
     if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'

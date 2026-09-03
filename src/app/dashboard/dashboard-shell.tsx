@@ -68,7 +68,7 @@ export default function DashboardShell({ children, email, workspaces, platformNa
           <Link href={workspace ? `/dashboard/billing?workspace=${workspace.id}` : "/dashboard/billing"} className="rounded-full border border-emerald-800/20 bg-white px-4 py-2 text-xs font-semibold text-emerald-900 shadow-sm">View plan</Link>
         </header>
         <main className="dashboard-main">{children}</main>
-        <footer className="dashboard-footer"><span>Finance Studio v1.0 © 2026 Evermont Realty Partners LLC.</span><span className="flex gap-4"><Link href="/privacy">Privacy</Link><Link href="/security">Security</Link></span></footer>
+        <footer className="dashboard-footer"><span>Finance Studio v1.0 © 2026 Evermont Realty Partners LLC.</span><span className="flex gap-4"><Link href="/terms">Terms</Link><Link href="/privacy">Privacy</Link><Link href="/security">Security</Link></span></footer>
       </div>
     </div>
   );

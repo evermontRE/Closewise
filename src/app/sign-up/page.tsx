@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { registrationCopy, registrationMode } from "@/lib/registration";
 
 export default function SignUpPage() {
+  const copy = registrationCopy(registrationMode());
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
@@ -31,10 +33,11 @@ export default function SignUpPage() {
   return (
     <div className="flex flex-1 items-center justify-center px-6 py-24">
       <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-semibold tracking-tight">Create your account</h1>
-        <p className="mt-2 text-sm text-zinc-500">Start your Closewise workspace.</p>
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">Finance Studio</p>
+        <h1 className="mt-3 text-2xl font-semibold tracking-tight">{copy.heading}</h1>
+        <p className="mt-2 text-sm leading-6 text-zinc-500">{copy.description}</p>
 
-        <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+        {copy.canRegister ? <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
           <label className="flex flex-col gap-1 text-sm">
             Email
             <input
@@ -66,7 +69,7 @@ export default function SignUpPage() {
           {message && (
             <p className={`text-sm ${status === "error" ? "text-red-600" : "text-emerald-600"}`}>{message}</p>
           )}
-        </form>
+        </form> : <div className="mt-8 rounded-2xl border border-emerald-900/10 bg-emerald-50 p-5"><p className="text-sm leading-6 text-emerald-950">Invited testers receive an account invitation by email. To request consideration for the beta, contact Evermont and include your role and brokerage.</p><a href="mailto:eva@evermontre.com?subject=Finance%20Studio%20private%20beta" className="mt-4 inline-flex rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white">Request beta access</a></div>}
 
         <p className="mt-6 text-sm text-zinc-500">
           Already have an account?{" "}
