@@ -7,11 +7,27 @@ import SignOutButton from "./sign-out-button";
 
 type Workspace = { id: string; name: string };
 
-function NavLink({ href, label, onSelect }: { href: string; label: string; onSelect: () => void }) {
+type IconName = "grid" | "overview" | "bank" | "sync" | "setup" | "billing" | "privacy";
+
+const iconPaths: Record<IconName, ReactNode> = {
+  grid: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
+  overview: <><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></>,
+  bank: <><path d="m3 10 9-6 9 6"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8M3 21h18"/></>,
+  sync: <><path d="M20 7h-5V2"/><path d="M4 17h5v5"/><path d="M5.1 9A8 8 0 0 1 19 7M18.9 15A8 8 0 0 1 5 17"/></>,
+  setup: <><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.94 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.57 15 1.7 1.7 0 0 0 3 14H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.57 1.7 1.7 0 0 0 10 3V3h4v.08a1.7 1.7 0 0 0 1.06 1.52 1.7 1.7 0 0 0 1.88-.34L17 4.2 19.8 7l-.06.06A1.7 1.7 0 0 0 19.4 9c.2.62.78 1.03 1.43 1.03H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z"/></>,
+  billing: <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></>,
+  privacy: <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></>,
+};
+
+function NavIcon({ name }: { name: IconName }) {
+  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{iconPaths[name]}</svg>;
+}
+
+function NavLink({ href, label, icon, onSelect }: { href: string; label: string; icon: IconName; onSelect: () => void }) {
   const pathname = usePathname();
   const pathOnly = href.split("?")[0];
   const active = pathname === pathOnly || (pathOnly !== "/dashboard" && pathname.startsWith(`${pathOnly}/`));
-  return <Link href={href} onClick={onSelect} className={`dashboard-nav-link ${active ? "dashboard-nav-link-active" : ""}`}>{label}</Link>;
+  return <Link href={href} onClick={onSelect} className={`dashboard-nav-link ${active ? "dashboard-nav-link-active" : ""}`}><span className="dashboard-nav-icon"><NavIcon name={icon}/></span><span>{label}</span></Link>;
 }
 
 export default function DashboardShell({ children, email, workspaces, platformNav }: { children: ReactNode; email: string; workspaces: Workspace[]; platformNav: ReactNode }) {
@@ -30,8 +46,8 @@ export default function DashboardShell({ children, email, workspaces, platformNa
       <aside className={`dashboard-sidebar ${open ? "dashboard-sidebar-open" : ""}`}>
         <div className="flex items-center justify-between">
           <Link href="/dashboard" onClick={close} className="flex items-center gap-3">
-            <span className="brand-mark">FS</span>
-            <span><strong className="block text-sm tracking-tight">Finance Studio</strong><span className="text-[11px] text-emerald-100/70">by Evermont</span></span>
+            <span className="brand-mark"><span>F</span></span>
+            <span><strong className="block text-[15px] tracking-[-.025em]">Finance Studio</strong><span className="text-[10px] uppercase tracking-[.18em] text-emerald-100/55">Evermont</span></span>
           </Link>
           <button className="dashboard-close-button" type="button" onClick={close} aria-label="Close navigation">×</button>
         </div>
@@ -44,16 +60,18 @@ export default function DashboardShell({ children, email, workspaces, platformNa
         </label>}
 
         <nav className="mt-7 flex flex-1 flex-col gap-1" aria-label="Main navigation">
-          <NavLink href="/dashboard" label="Workspaces" onSelect={close} />
+          <p className="dashboard-nav-label">Workspace</p>
+          <NavLink href="/dashboard" label="All workspaces" icon="grid" onSelect={close} />
           {workspace && <>
-            <NavLink href={`/dashboard/workspaces/${workspace.id}`} label="Financial overview" onSelect={close} />
-            <NavLink href={`/dashboard/workspaces/${workspace.id}/banking`} label="Connected banks" onSelect={close} />
-            <NavLink href={`/dashboard/workspaces/${workspace.id}/sync`} label="Sync & import" onSelect={close} />
-            <NavLink href={`/dashboard/workspaces/${workspace.id}/onboarding`} label="Workspace setup" onSelect={close} />
+            <NavLink href={`/dashboard/workspaces/${workspace.id}`} label="Overview" icon="overview" onSelect={close} />
+            <NavLink href={`/dashboard/workspaces/${workspace.id}/banking`} label="Banking" icon="bank" onSelect={close} />
+            <NavLink href={`/dashboard/workspaces/${workspace.id}/sync`} label="Review & import" icon="sync" onSelect={close} />
+            <NavLink href={`/dashboard/workspaces/${workspace.id}/onboarding`} label="Workspace setup" icon="setup" onSelect={close} />
           </>}
           <div className="my-3 border-t border-white/10" />
-          <NavLink href={workspace ? `/dashboard/billing?workspace=${workspace.id}` : "/dashboard/billing"} label="Plan & billing" onSelect={close} />
-          <NavLink href="/dashboard/privacy" label="Privacy center" onSelect={close} />
+          <p className="dashboard-nav-label">Account</p>
+          <NavLink href={workspace ? `/dashboard/billing?workspace=${workspace.id}` : "/dashboard/billing"} label="Plan & billing" icon="billing" onSelect={close} />
+          <NavLink href="/dashboard/privacy" label="Privacy & data" icon="privacy" onSelect={close} />
           {platformNav}
         </nav>
 
@@ -64,8 +82,8 @@ export default function DashboardShell({ children, email, workspaces, platformNa
       </aside>
       <div className="dashboard-body">
         <header className="dashboard-topbar">
-          <div><p className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-800">Financial intelligence</p><p className="mt-0.5 text-sm text-zinc-600">{workspace?.name ?? "Your business workspace"}</p></div>
-          <Link href={workspace ? `/dashboard/billing?workspace=${workspace.id}` : "/dashboard/billing"} className="rounded-full border border-emerald-800/20 bg-white px-4 py-2 text-xs font-semibold text-emerald-900 shadow-sm">View plan</Link>
+          <div><p className="topbar-kicker">Financial command center</p><p className="topbar-workspace">{workspace?.name ?? "Your business workspace"}</p></div>
+          <div className="flex items-center gap-3"><span className="preview-status"><i/>Preview</span><Link href={workspace ? `/dashboard/billing?workspace=${workspace.id}` : "/dashboard/billing"} className="topbar-plan">View plan</Link></div>
         </header>
         <main className="dashboard-main">{children}</main>
         <footer className="dashboard-footer"><span>Finance Studio v1.0 © 2026 Evermont Realty Partners LLC.</span><span className="flex gap-4"><Link href="/terms">Terms</Link><Link href="/privacy">Privacy</Link><Link href="/security">Security</Link></span></footer>
