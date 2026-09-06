@@ -2,71 +2,50 @@
 
 import { useState, type ReactNode } from "react";
 
-type IconName = "overview" | "bank" | "review" | "commission" | "expense" | "tax" | "report" | "setup";
-
+type IconName = "dashboard" | "money" | "client" | "expense" | "tax" | "grow" | "analyze" | "manage" | "settings" | "search" | "bell" | "plus" | "chevron" | "wallet" | "clock" | "bank";
 const icons: Record<IconName, ReactNode> = {
-  overview: <><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></>,
-  bank: <><path d="m3 10 9-6 9 6"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8M3 21h18"/></>,
-  review: <><path d="M20 7h-5V2M4 17h5v5"/><path d="M5 9a8 8 0 0 1 14-2M19 15a8 8 0 0 1-14 2"/></>,
-  commission: <><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
-  expense: <><path d="M4 7h16v13H4zM8 7V4h8v3M8 12h8"/></>,
-  tax: <><path d="M6 2h9l4 4v16H6zM14 2v5h5M9 12h6M9 16h6"/></>,
-  report: <><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></>,
-  setup: <><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l-2.8 2.8a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6h-4a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-2.8-2.8a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14v-4a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l2.8-2.8a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3h4a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l2.8 2.8a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1v4a1.7 1.7 0 0 0-1.6 1Z"/></>,
+  dashboard: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
+  money: <><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
+  client: <><circle cx="10" cy="8" r="4"/><path d="M3 21a7 7 0 0 1 14 0M18 8l1 2 2 .3-1.5 1.5.4 2.2-1.9-1-1.9 1 .4-2.2L15 10.3l2-.3Z"/></>,
+  expense: <><path d="M12 2v20M5 9l7-7 7 7M5 15l7 7 7-7"/></>,
+  tax: <><path d="m3 10 9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 21h18"/></>,
+  grow: <><path d="M3 3v18h18M7 15l4-4 3 3 5-7"/></>,
+  analyze: <><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></>,
+  manage: <><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></>,
+  settings: <><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l-2.8 2.8a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6h-4a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-2.8-2.8a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14v-4a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l2.8-2.8a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3h4a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l2.8 2.8a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1v4a1.7 1.7 0 0 0-1.6 1Z"/></>,
+  search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></>, bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></>, plus: <><path d="M12 5v14M5 12h14"/></>, chevron: <path d="m9 18 6-6-6-6"/>, wallet: <><path d="M3 7h16v13H3zM3 7l3-4h11l2 4M15 13h4"/></>, clock: <><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></>, bank: <><path d="M4 9h16M6 9v9M10 9v9M14 9v9M18 9v9M3 21h18M3 9l9-6 9 6"/></>,
 };
+function Icon({ name }: { name: IconName }) { return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{icons[name]}</svg>; }
 
-function Icon({ name }: { name: IconName }) {
-  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{icons[name]}</svg>;
-}
-
-const nav: Array<{ label: string; icon: IconName; section?: string }> = [
-  { label: "Overview", icon: "overview", section: "Workspace" },
-  { label: "Banking", icon: "bank" },
-  { label: "Review transactions", icon: "review" },
-  { label: "Commissions", icon: "commission", section: "Money" },
-  { label: "Expenses", icon: "expense" },
-  { label: "Tax planning", icon: "tax" },
-  { label: "Reports", icon: "report", section: "Insights" },
-  { label: "Workspace setup", icon: "setup", section: "Account" },
+const groups = [
+  { key: "expenses", label: "Expenses", icon: "expense" as const, children: ["Bank Feed", "Income & Expense Ledger", "Mileage", "Subscriptions"] },
+  { key: "grow", label: "Grow", icon: "grow" as const, children: ["Goals", "Budget"] },
+  { key: "analyze", label: "Analyze", icon: "analyze" as const, children: ["Deal Profitability", "Reports & Exports", "Smart Insights"] },
+  { key: "manage", label: "Manage", icon: "manage" as const, children: ["Financial Timeline", "Audit Trail", "Marketplace"] },
 ];
+const compactMetrics = [["Net Business Income","$64,640","75% of GCI retained","Profitable"],["Operating Expenses","$21,760","25% of net received","On track"],["Available Business Cash","$34,920","4.8 months covered","Stable"],["Profit Margin","75%","$64,640 profit","Strong"],["Cash Runway","4.8 months","Stable operating cushion","Stable"]];
 
 export default function DesignPreview() {
-  const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
-
-  return <div className="dashboard-frame design-preview-frame">
-    <button className="dashboard-menu-button" type="button" aria-label="Open navigation" aria-expanded={open} onClick={() => setOpen(true)}><span/><span/><span/></button>
-    <button className={`dashboard-scrim ${open ? "dashboard-scrim-open" : ""}`} type="button" onClick={close} aria-label="Close navigation overlay"/>
-    <aside className={`dashboard-sidebar ${open ? "dashboard-sidebar-open" : ""}`}>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3"><span className="brand-mark"><span>F</span></span><span><strong className="block text-[15px] tracking-[-.025em]">Finance Studio</strong><span className="text-[10px] uppercase tracking-[.18em] text-emerald-100/55">Evermont</span></span></div>
-        <button className="dashboard-close-button" type="button" onClick={close} aria-label="Close navigation">×</button>
-      </div>
-      <label className="mt-7 block text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-100/60">Workspace<select defaultValue="Eva Morais Realty" className="mt-2 w-full rounded-xl border border-white/15 bg-white/10 px-3 py-2.5 text-sm normal-case tracking-normal text-white outline-none"><option>Eva Morais Realty</option></select></label>
-      <nav className="mt-7 flex flex-1 flex-col gap-1" aria-label="Design preview navigation">
-        {nav.map((item, index) => <div key={item.label}>{item.section ? <p className={`dashboard-nav-label ${index ? "mt-5" : ""}`}>{item.section}</p> : null}<button type="button" onClick={close} className={`dashboard-nav-link w-full text-left ${index === 0 ? "dashboard-nav-link-active" : ""}`}><span className="dashboard-nav-icon"><Icon name={item.icon}/></span><span>{item.label}</span>{item.label === "Review transactions" ? <b className="nav-count">12</b> : null}</button></div>)}
-      </nav>
-      <div className="border-t border-white/10 pt-4"><p className="text-[11px] text-emerald-50/65">eva@evermontre.com</p><p className="mt-1 text-[10px] text-emerald-50/35">Design preview · fictional data</p></div>
-    </aside>
-    <div className="dashboard-body">
-      <header className="dashboard-topbar"><div><p className="topbar-kicker">Financial command center</p><p className="topbar-workspace">Eva Morais Realty</p></div><div className="flex items-center gap-3"><span className="preview-status"><i/>Design preview</span><button type="button" className="topbar-plan">Essentials plan</button></div></header>
-      <main className="dashboard-main">
-        <div className="workspace-dashboard mx-auto max-w-[1240px]">
-          <div className="design-preview-note"><span>Design mode</span><p>Select any area in the browser and leave a comment. All figures below are fictional.</p></div>
-          <div className="dashboard-heading"><div><p className="eyebrow">Business overview</p><h1 className="page-title">Know what is yours to keep.</h1><p className="page-intro">Your financial position, bookkeeping priorities, and commission pipeline—at a glance.</p></div><div className="dashboard-heading-actions"><button type="button" className="primary-link">Review transactions <span aria-hidden="true">→</span></button><span className="dashboard-date">September 2026</span></div></div>
-          <section className="financial-priority-grid mt-8">
-            <article className="metric-card metric-card-primary"><div className="metric-label"><span className="metric-dot"/>Available now</div><p>Safe to spend</p><strong>$18,420.00</strong><span>After expenses and suggested tax reserve</span></article>
-            <article className="metric-card metric-card-commission"><div className="metric-label">Coming next</div><p>Expected net commission</p><strong>$12,780.00</strong><span>3 pending closings</span></article>
-            <article className="metric-card"><div className="metric-label">Set aside</div><p>Suggested tax reserve</p><strong>$8,250.00</strong><span>Planning estimate—not tax advice</span></article>
-          </section>
-          <section className="performance-strip mt-5" aria-label="Year-to-date performance"><div><p>Income</p><strong>$86,400.00</strong></div><div><p>Expenses</p><strong>$21,760.00</strong></div><div><p>Business profit</p><strong>$64,640.00</strong></div><div className="performance-margin"><p>Profit margin</p><strong>75%</strong></div></section>
-          <section className="dashboard-lower-grid mt-5">
-            <div className="surface-card bookkeeping-panel"><div className="panel-heading"><div><p className="eyebrow">Today’s bookkeeping</p><h2 className="section-title mt-1">Move every dollar toward clarity</h2></div><button type="button" className="text-link">Open review queue <span aria-hidden="true">→</span></button></div><div className="workflow-list"><button type="button" className="workflow-row w-full text-left"><span className="workflow-number">01</span><span><strong>Review 12 new transactions</strong><small>Confirm categories and business purpose.</small></span><b aria-hidden="true">→</b></button><button type="button" className="workflow-row w-full text-left"><span className="workflow-number">02</span><span><strong>Match 2 deposits to deals</strong><small>Connect commission income to the right closing.</small></span><b aria-hidden="true">→</b></button><button type="button" className="workflow-row w-full text-left"><span className="workflow-number">03</span><span><strong>Reconcile August</strong><small>Compare reviewed activity with your statement.</small></span><b aria-hidden="true">→</b></button></div></div>
-            <aside className="surface-card next-action-panel"><p className="eyebrow">Recommended next</p><div className="action-icon" aria-hidden="true">12</div><h2 className="section-title">Clear your review queue</h2><p className="section-copy">Twelve bank transactions need a category or deal match before your reports are current.</p><button type="button" className="secondary-link mt-5 inline-flex">Start review <span aria-hidden="true">→</span></button></aside>
-          </section>
+  const [open, setOpen] = useState(false); const [active, setActive] = useState("Dashboard"); const [expanded, setExpanded] = useState("expenses");
+  const close = () => setOpen(false); const choose = (label: string) => { setActive(label); close(); };
+  return <div className="demo-frame design-preview-frame">
+    <button className="demo-menu" type="button" aria-label="Open navigation" aria-expanded={open} onClick={() => setOpen(true)}><span/><span/><span/></button><button className={`demo-scrim ${open ? "is-open" : ""}`} type="button" onClick={close} aria-label="Close navigation overlay"/>
+    <aside className={`demo-sidebar ${open ? "is-open" : ""}`}><div className="demo-wordmark"><b>FINANCE</b><span>Studio</span><sup>™</sup><button type="button" onClick={close} aria-label="Close navigation">×</button></div><nav aria-label="Finance Studio demo navigation">
+      {[{label:"Dashboard",icon:"dashboard" as const},{label:"Commissions",icon:"money" as const},{label:"Client Value",icon:"client" as const}].map(item => <button key={item.label} type="button" className={active === item.label ? "is-active" : ""} onClick={() => choose(item.label)}><Icon name={item.icon}/><span>{item.label}</span></button>)}<div className="demo-nav-rule"/>
+      {groups.map(group => <div className="demo-nav-group" key={group.key}><button type="button" className={group.children.includes(active) ? "is-current" : ""} aria-expanded={expanded === group.key} onClick={() => setExpanded(expanded === group.key ? "" : group.key)}><Icon name={group.icon}/><span>{group.label}</span><i className={expanded === group.key ? "is-rotated" : ""}><Icon name="chevron"/></i></button>{expanded === group.key ? <div className="demo-subnav">{group.children.map(label => <button type="button" key={label} className={active === label ? "is-active" : ""} onClick={() => choose(label)}><span>{label}</span>{label === "Smart Insights" ? <em>3</em> : null}</button>)}</div> : null}</div>)}
+      <button type="button" className={active === "Tax Planning" ? "is-active" : ""} onClick={() => choose("Tax Planning")}><Icon name="tax"/><span>Tax Planning</span></button>
+    </nav><div className="demo-sidebar-bottom"><button type="button" onClick={() => choose("Settings")}><Icon name="settings"/><span>Settings</span></button><div className="demo-profile"><span>EM</span><div><strong>Eva Morais</strong><small>Lic # 01234567</small><small>Evermont Realty</small></div><b>⋮</b></div><p><i/>Cloud preview · Synced</p></div></aside>
+    <div className="demo-main"><header className="demo-topbar"><div className="demo-greeting"><strong>Good morning, Eva.</strong><span>Financial Command Center</span></div><button type="button" className="demo-date"><small>Today</small><b>Sep 6, 2026</b></button><label className="demo-search"><Icon name="search"/><input aria-label="Search Finance Studio" placeholder="Search…"/><kbd>Ctrl K</kbd></label><div className="demo-top-actions"><span className="demo-saved"><i/>Synced</span><button type="button" aria-label="Notifications"><Icon name="bell"/><em>3</em></button><button type="button" className="demo-add" aria-label="Add record"><Icon name="plus"/></button></div></header>
+      <main className="demo-content"><div className="design-preview-note"><span>Design mode</span><p>This React preview follows your uploaded Finance Studio HTML. All figures are fictional.</p></div><div className="demo-page-head"><div><p>Business performance</p><h1>{active === "Dashboard" ? "Command Center" : active}</h1><span>Your financial position and priorities at a glance.</span></div><button type="button">September 2026 <Icon name="chevron"/></button></div>
+        <section className="demo-kpis" aria-label="Key financial indicators"><article className="demo-kpi is-hero"><div><span><Icon name="wallet"/>Safe to Spend</span><em>Available now</em></div><strong>$18,420</strong><div className="demo-meter"><i style={{width:"53%"}}/></div><p><span>Share of operating cash</span><b>53%</b></p></article><article className="demo-kpi"><div><span><Icon name="clock"/>Expected Net Commission</span><em>3 active</em></div><strong>$12,780</strong><p><span>Next expected closing</span><b>Sep 18</b></p></article><article className="demo-kpi"><div><span><Icon name="bank"/>Tax Reserve Status</span><em className="is-warn">62% funded</em></div><strong>$8,250</strong><div className="demo-meter is-blue"><i style={{width:"62%"}}/></div><p><span>Remaining to target</span><b className="is-warn-text">$5,050</b></p></article><article className="demo-kpi"><div><span><Icon name="money"/>Gross Commission Income</span><em>72% of goal</em></div><strong>$86,400</strong><div className="demo-meter"><i style={{width:"72%"}}/></div><p><span>8 closed this year</span><b>$120K goal</b></p></article></section>
+        <section className="demo-strip" aria-label="Financial performance signals">{compactMetrics.map(([label,value,sub,status],index) => <button type="button" key={label}><span>{label}<em>{status}</em></span><strong>{value}</strong>{index === 4 ? <i className="demo-mini-meter"><b style={{width:"80%"}}/></i> : null}<small>{sub}</small></button>)}</section>
+        <div className="demo-dashboard-grid"><section className="demo-card demo-chart-card"><div className="demo-card-head"><div><h2>Income, Expenses &amp; Profit</h2><p>Monthly operating results.</p></div><button type="button">View report</button></div><div className="demo-chart-summary"><span><small>YTD net commission</small><b>$86,400</b></span><span><small>YTD operating expenses</small><b>$21,760</b></span><span><small>YTD profit</small><b>$64,640</b></span></div><div className="demo-chart" aria-label="Monthly financial performance chart"><svg viewBox="0 0 760 220" role="img"><g className="grid"><path d="M40 30H735M40 80H735M40 130H735M40 180H735"/></g><path className="income" d="M40 165C90 150 115 154 155 128S235 104 275 114 350 69 400 75 480 40 535 52 620 27 735 35"/><path className="expense" d="M40 180C100 176 116 160 170 169S250 150 305 160 390 143 450 151 540 131 600 142 682 126 735 131"/><path className="profit" d="M40 174C110 164 125 164 176 145S250 126 306 133 385 95 445 102 535 67 595 78 675 54 735 62"/></svg><div className="demo-months"><span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span></div></div><div className="demo-legend"><span><i className="is-income"/>Net commission</span><span><i className="is-expense"/>Operating expenses</span><span><i className="is-profit"/>Profit</span></div><p className="demo-insight"><b>Insight</b> You are profitable year to date. August is your strongest profit month.</p></section>
+          <aside className="demo-card demo-attention"><div className="demo-card-head"><div><h2>Attention Today</h2><p>3 priorities from your financial scan.</p></div><span><i/>Smart scan</span></div>{[{tag:"Records",urgency:"Review today",title:"12 transactions need review",copy:"Categories and business purpose are incomplete."},{tag:"Tax",urgency:"Act now",title:"Reserve is $5,050 below target",copy:"Move funds before your next estimated payment."},{tag:"Income",urgency:"Upcoming",title:"3 closings are in your pipeline",copy:"Confirm dates to improve your cash outlook."}].map((item,index)=><button type="button" key={item.title} className={`attention-row tone-${index}`}><i/><span><small><b>{item.tag}</b><em>{item.urgency}</em></small><strong>{item.title}</strong><p>{item.copy}</p><u>Review details →</u></span><Icon name="chevron"/></button>)}</aside>
+          <section className="demo-card demo-coming"><div className="demo-card-head"><div><h2>Coming Next</h2><p>Closings, renewals, and obligations.</p></div><button type="button">Timeline</button></div>{[["SEP","12","Quarterly tax reserve","−$3,200"],["SEP","18","Oak Avenue closing","+$7,850"],["SEP","26","CRM annual renewal","−$599"]].map(row=><button type="button" key={row[2]}><span><small>{row[0]}</small><b>{row[1]}</b></span><div><strong>{row[2]}</strong><small>Expected financial movement</small></div><em>{row[3]}</em></button>)}</section>
+          <section className="demo-card demo-goals"><div className="demo-card-head"><div><h2>Annual Goal Progress</h2><p>Production and income pace.</p></div><button type="button">Edit goals</button></div><div className="goal-row"><span>Gross Commission Income <b>72%</b></span><strong>$86,400 <small>of $120,000</small></strong><i><b style={{width:"72%"}}/></i><p>$33,600 remaining <em>4 pts ahead of pace</em></p></div><div className="goal-row"><span>Net Business Income <b>81%</b></span><strong>$64,640 <small>of $80,000</small></strong><i><b style={{width:"81%"}}/></i><p>$15,360 remaining <em>13 pts ahead of pace</em></p></div></section>
+          <aside className="demo-card demo-health"><div className="demo-card-head"><div><h2>Financial Health Score</h2><p>Five signals from your records.</p></div></div><div className="health-layout"><div className="health-ring"><strong>78%</strong><small>Healthy</small></div><div>{[["Tax reserve",62],["Cash runway",80],["Profit margin",92],["Pipeline hygiene",76],["Goal pace",83]].map(([label,value])=><span key={label as string}><small>{label}</small><b>{value}%</b><i><em style={{width:`${value}%`}}/></i></span>)}</div></div></aside>
         </div>
-      </main>
-      <footer className="dashboard-footer"><span>Finance Studio design preview · Fictional data only</span><span>Desktop · Tablet · Mobile</span></footer>
-    </div>
+        <section className="demo-card demo-outlook"><div className="demo-card-head"><div><h2>30 / 60 / 90-Day Financial Outlook</h2><p>Projected operating cash for the next 90 days.</p></div><span><i/>82% confidence · Strong</span></div><div className="outlook-lead"><div><small><Icon name="wallet"/>Safe to Spend today</small><strong>$18,420</strong><p>Operating cash $34,920 · tax reserve gap $5,050</p></div><p><b>Your expected cash position strengthens.</b> Current records project $42,870 in operating cash by the 90-day horizon.</p></div><div className="outlook-horizons">{[["30-day horizon","$26,270","+$7,850"],["60-day horizon","$33,490","+$15,070"],["90-day horizon","$42,870","+$24,450"]].map(row=><button type="button" key={row[0]}><span>{row[0]}<small>Expected</small></span><strong>{row[1]}</strong><em>{row[2]} vs. today</em><i><b style={{width:row[0].startsWith("30")?"61%":row[0].startsWith("60")?"78%":"100%"}}/></i></button>)}</div></section>
+      </main><footer className="demo-footer"><span>Finance Studio design preview · Fictional data only</span><span>Built from your uploaded HTML · Desktop · Tablet · Mobile</span></footer></div>
   </div>;
 }
