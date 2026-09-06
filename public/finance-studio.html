@@ -1069,6 +1069,21 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
 }
 .ev-dashboard-left,.ev-dashboard-right{display:grid;gap:var(--dash-gap);min-width:0}
 .ev-dashboard-right{grid-template-rows:auto auto}
+.ev-dash-workflow-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:var(--dash-gap);min-width:0}
+.ev-dash-workflow-card .ev-card-pad{padding-top:14px}
+.ev-bank-workflow-status{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid #d8e5df;border-radius:12px;background:#f5faf7;color:#325f50}
+.ev-bank-workflow-status>svg{flex:none;color:var(--brand-600)}
+.ev-bank-workflow-status strong,.ev-bank-workflow-status small{display:block}.ev-bank-workflow-status small{margin-top:3px;color:var(--ink-500)}
+.ev-bank-workflow-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.ev-bank-workflow-count{appearance:none;display:flex;flex-direction:column;gap:3px;min-width:0;padding:12px;border:1px solid var(--surface-border);border-radius:11px;background:var(--surface-raised);color:var(--ink-700);text-align:left}
+.ev-bank-workflow-count:hover{border-color:var(--brand-300);background:var(--brand-050)}
+.ev-bank-workflow-count strong{font:700 22px/1.1 var(--f-display);font-variant-numeric:tabular-nums}.ev-bank-workflow-count span{color:var(--ink-500);font-size:12px}
+.ev-pipeline-compact{display:grid}.ev-pipeline-row{appearance:none;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:12px 0;border:0;border-top:1px solid var(--surface-border);background:transparent;color:var(--ink-800);text-align:left}
+.ev-pipeline-row:first-child{border-top:0;padding-top:0}.ev-pipeline-row:last-child{padding-bottom:0}.ev-pipeline-row:hover strong{color:var(--brand-700)}
+.ev-pipeline-row>span{grid-column:1;color:var(--ink-500);font-size:12px}.ev-pipeline-row>strong{grid-column:1;grid-row:1;font-weight:700}.ev-pipeline-money{grid-column:2;grid-row:1/3;text-align:right}.ev-pipeline-money b,.ev-pipeline-money small{display:block}.ev-pipeline-money b{font-family:var(--f-display);font-variant-numeric:tabular-nums}.ev-pipeline-money small{margin-top:3px;color:var(--ink-500);font-size:11px}
+.ev-dash-readiness-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--dash-gap);min-width:0}
+.ev-readiness-kv{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid var(--surface-border)}.ev-readiness-kv:first-child{padding-top:0;border-top:0}.ev-readiness-kv span{color:var(--ink-500);font-size:12px}.ev-readiness-kv b{color:var(--ink-800);text-align:right;font-variant-numeric:tabular-nums}
+.ev-readiness-callout{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:11px;border-radius:10px;background:var(--brand-050);color:var(--brand-800);font-size:12px;line-height:1.45}.ev-readiness-callout>svg{flex:none;margin-top:1px}
 .ev-dash-bottom-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--dash-gap);min-width:0}
 .ev-dashboard-shell .ev-card{
   min-width:0;border:1px solid #dce1de;border-radius:16px;background:#fff;overflow:hidden;
@@ -1453,6 +1468,7 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
   .ev-dash-mini:nth-child(3){border-right:0}
   .ev-dash-mini:nth-child(n/**/+4){border-top:1px solid #dde2df}
   .ev-dashboard-main{grid-template-columns:minmax(0,1.65fr) minmax(285px,.9fr)}
+  .ev-dash-readiness-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
 /* --- 1024px · Tablet landscape / sidebar collapse --- */
@@ -1469,6 +1485,7 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
   .ev-topbar .ev-global-search{flex-basis:210px;max-width:210px;}
 .ev-dashboard-shell{--dash-gap:15px}
   .ev-dashboard-main{grid-template-columns:1fr}
+  .ev-dash-workflow-grid{grid-template-columns:1fr}
   .ev-dashboard-right{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto}
   .ev-attention-card .ev-dash-card-head{column-gap:8px}
   .ev-attention-live{padding-inline:6px}
@@ -1544,6 +1561,7 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
   .ev-dash-mini:nth-child(2n){border-right:0}
   .ev-dash-mini:nth-child(3){border-right:1px solid #dde2df}
   .ev-dashboard-right,.ev-dash-bottom-grid{grid-template-columns:1fr}
+  .ev-dash-readiness-grid{grid-template-columns:1fr}
   .ev-dash-chart .ev-chartwrap{min-height:220px;max-height:270px}
   .ev-dash-insight-line{align-items:flex-start;flex-wrap:wrap}.ev-dash-insight-line small{margin-left:23px}
   .ev-health-layout{grid-template-columns:118px minmax(0,1fr);gap:14px}
@@ -1585,6 +1603,7 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
   .ev-dash-strip{grid-template-columns:1fr}
   .ev-dash-mini{min-height:88px;border-right:0;border-top:1px solid #dde2df}
   .ev-dash-mini:first-child{border-top:0}
+  .ev-bank-workflow-counts{grid-template-columns:1fr}.ev-bank-workflow-count{flex-direction:row;align-items:center;justify-content:space-between}
   .ev-dash-card-head{padding:15px 15px 0;flex-wrap:wrap}.ev-dash-card-head>.ev-btn{margin-left:0}
   .ev-chart-summary{grid-template-columns:1fr}.ev-chart-summary-item{padding:7px 9px}
   .ev-attention-card .ev-dash-card-head{grid-template-columns:minmax(0,1fr) auto;flex-wrap:nowrap}
@@ -7670,6 +7689,10 @@ VIEWS.dashboard = function(){
   if(!workspaceHasRealData(this.db) && !this.db.settings.demoWorkspace) return emptyCommandCenter(this);
   var fc=this.has('budget') ? e.forecast(this.cap('forecastMonths') || 6) : null;
   var bud=e.budget(), goals=e.goals(), ins=this.has('insights') ? e.insights() : [], obligations=e.obligations();
+  var bank=e.bankFeed(), dealRows=e.deals().filter(function(r){return !r.dead;}).sort(function(a,b){return b.netProfit-a.netProfit;});
+  var weakestDeal=dealRows.slice().sort(function(a,b){return a.marginPct-b.marginPct;})[0]||null, strongestDeal=dealRows[0]||null;
+  var missingReceiptCount=e.ledgerYear().filter(function(r){return r.type==='expense'&&num(r.amount)>=75&&!r.receiptRef;}).length;
+  var dataGapCount=e.dataGaps().length, reconciliation=e.reconciliation();
   var mIdx=e.isCurrentYear ? todayLocal().getMonth() : 11;
   var safeToSpend=fc ? fc.safeToSpend : s.cash.operating - tax.gap - s.monthlyOpex;
   var pipeline=e.pipeline().filter(function(r){return parseDate(r.expectedClosingDate) && parseDate(r.expectedClosingDate)>=e.today;}).sort(function(a,b){return parseDate(a.expectedClosingDate)-parseDate(b.expectedClosingDate);});
@@ -7769,14 +7792,23 @@ VIEWS.dashboard = function(){
     statTile({hero:true,label:'Safe to Spend',value:money(safeToSpend),icon:'wallet',view:this.has('budget')?'budget':'ledger',source:'Available business cash',signal:safeToSpend>=0?'Available now':'Overcommitted',signalTone:safeToSpend>=0?'gain':'risk',metricLabel:'Share of operating cash',metricValue:pct(s.cash.operating>0?clamp(Math.max(safeToSpend,0)/s.cash.operating*100,0,100):0,0),meter:s.cash.operating>0?clamp(Math.max(safeToSpend,0)/s.cash.operating*100,0,100):0})+
     statTile({label:'Expected Net Commission',value:money(expectedNet90),icon:'hourglass',view:'commissions',source:'Pending closings',signal:pipeline.length+' active',signalTone:'gain',meterBlank:true,metricLabel:'Next expected closing',metricValue:nextPipe?fmtDate(nextPipe.expectedClosingDate):'No date'})+
     statTile({label:'Tax Reserve Status',value:money(tax.reserveActual),icon:'landmark',view:'tax',source:'Tax planning',signal:pct(tax.coveragePct,0)+' funded',signalTone:tax.gap>0?'warn':'gain',meter:tax.coveragePct,meterColor:'var(--ev-meter-tax)',metricLabel:'Remaining to target',metricValue:tax.gap>0?money(tax.gap):'Covered',metricTone:tax.gap>0?'warn':'gain'})+
-    statTile({label:'Gross Commission Income',value:money(s.gci),icon:'banknoteArrowUp',view:'commissions',source:'Closed commissions',signal:(gciGoal&&gciGoal.target?pct(gciGoal.pct,0)+' of goal':'Goal not set'),signalTone:'gain',meter:gciGoal?gciGoal.pct:0,foot:gciGoal&&gciGoal.target?(closedCount+' closed · '+pct(gciGoal.pct,0)+' of your '+money(gciGoal.target)+' goal'):(closedCount+' closed · Set an annual GCI goal')})+
+    statTile({label:'Net Business Income YTD',value:money(s.netBusinessIncome),icon:'trendUp',view:'reports',source:'Income received less expenses',signal:s.netBusinessIncome>=0?'Profitable':'Needs review',signalTone:s.netBusinessIncome>=0?'gain':'risk',meterBlank:true,metricLabel:'Gross commission context',metricValue:money(s.gci),metricTone:s.netBusinessIncome>=0?'gain':'risk'})+
   '</div>';
   h+='<div class="ev-dash-strip">'+
-    mini('Net Business Income',money(s.netBusinessIncome),(s.gci>0?pct(s.netBusinessIncome/s.gci*100,0)+' of GCI retained':'After business expenses'),s.netBusinessIncome>=0?'gain':'risk','reports','trendUp',s.netBusinessIncome>=0?'Profitable':'Review')+
+    mini('Gross Commission Income',money(s.gci),(gciGoal&&gciGoal.target?pct(gciGoal.pct,0)+' of '+money(gciGoal.target)+' goal':closedCount+' closed commissions'),'gain','commissions','banknoteArrowUp',gciGoal&&gciGoal.target?(gciGoal.pct>=goals.yearFracPct?'On pace':'Behind'):'Set goal')+
     mini('Operating Expenses',money(s.expenses),(s.netReceived>0?pct(s.expenses/s.netReceived*100,0)+' of net received':'Year to date'),'risk','ledger','banknoteArrowDown',s.expenses<=s.monthlyOpex*12?'On track':'Watch')+
     mini('Available Business Cash',money(s.cash.operating),numFmt(s.runwayMonths,1)+' months at '+money(s.monthlyOpex)+'/mo','gain','budget','wallet',s.runwayMonths>=6?'Protected':s.runwayMonths>=3?'Stable':'Tight')+
     miniProfit()+
     miniRunway()+
+  '</div>';
+  h+='<div class="ev-dash-workflow-grid">'+
+    '<section class="ev-card ev-dash-workflow-card"><div class="ev-dash-card-head"><div><h3>Bank Review & Reconciliation</h3><p>Move imported activity through the bookkeeping workflow.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="bank">Open bank feed</button></div><div class="ev-card-pad">'+
+      '<div class="ev-bank-workflow-status">'+icon(bank.lastImportAt?'circleCheck':'landmark',18)+'<div><strong>'+(bank.lastImportAt?'Bank activity is available':'No bank activity imported yet')+'</strong><small>'+(bank.lastImportAt?('Last import '+fmtDate(String(bank.lastImportAt).slice(0,10))+' · '+(bank.balanced?'Books and bank are balanced':'Variance '+money(bank.variance))):'Import a statement or connect an account to begin reviewing activity.')+'</small></div></div>'+
+      '<div class="ev-bank-workflow-counts"><button class="ev-bank-workflow-count" data-act="nav" data-view="bank"><strong>'+numFmt(bank.counts.pending)+'</strong><span>Awaiting review</span></button><button class="ev-bank-workflow-count" data-act="nav" data-view="bank"><strong>'+numFmt(bank.counts.needsDeal)+'</strong><span>Possible deal matches</span></button><button class="ev-bank-workflow-count" data-act="nav" data-view="bank"><strong>'+numFmt(bank.counts.matched)+'</strong><span>Ready to reconcile</span></button></div>'+
+    '</div></section>'+
+    '<section class="ev-card ev-dash-workflow-card"><div class="ev-dash-card-head"><div><h3>Upcoming Commissions</h3><p>Expected net cash from active transactions.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="commissions">View pipeline</button></div><div class="ev-card-pad"><div class="ev-pipeline-compact">'+
+      (pipeline.length?pipeline.slice(0,3).map(function(r){return '<button class="ev-pipeline-row" data-act="edit-commission" data-id="'+attr(r.id)+'"><strong>'+esc(r.property||r.client||'Commission')+'</strong><span>'+esc(r.status)+' · '+esc(fmtDate(r.expectedClosingDate))+'</span><span class="ev-pipeline-money"><b>'+money(r.calc.netReceived)+'</b><small>expected net</small></span></button>';}).join(''):emptyState('hourglass','No upcoming commissions','Add an expected closing date to an active commission to see it here.','<button class="ev-btn ev-btn--primary ev-btn--sm" data-act="new-commission">Add commission</button>'))+
+    '</div></div></section>'+
   '</div>';
   h+='<div class="ev-dashboard-main">'+
     '<section class="ev-dashboard-left">'+
@@ -7797,6 +7829,14 @@ VIEWS.dashboard = function(){
       '<div class="ev-card ev-health-card"><div class="ev-dash-card-head"><div><h3>Financial Health Score</h3><p>Five signals from your current records.</p></div></div><div class="ev-card-pad"><div class="ev-health-layout"><div class="ev-health-ring">'+ringGauge(health.score,{size:122,stroke:9,color:toneVar(health.tone),center:pct(health.score,0),sub:health.band,title:'Financial health score'})+'</div><div class="ev-health-factors">'+health.factors.slice().sort(function(a,b){return b.weight-a.weight;}).map(function(f){var c=healthFactorColor(f.label),v=healthFactorView(f.label);return '<button class="ev-health-factor" data-act="nav" data-view="'+attr(v)+'" title="'+attr(f.why)+'"><span>'+esc(f.label)+'</span><b>'+pct(f.score*100,0)+'</b><i class="ev-health-meter"><em style="width:'+(f.score*100).toFixed(0)+'%;background:'+c+'"></em></i></button>';}).join('')+'</div></div><div class="ev-health-context"><div><span>Strongest measure</span><b>'+esc(health.factors.slice().sort(function(a,b){return b.score-a.score;})[0].label)+'</b></div><div><span>Needs the most attention</span><b>'+esc(health.factors.slice().sort(function(a,b){return a.score-b.score;})[0].label)+'</b></div></div><div class="ev-health-foot">'+(health.weakest.length?health.weakest.slice(0,2).map(function(f){return '<span>'+icon('minus',13)+esc(f.why)+'</span>';}).join(''):'<span>'+icon('circleCheck',13)+'Every measured factor is currently in a healthy range.</span>')+'</div></div></div>'+
     '</aside>'+
   '</div>'+outlookHtml;
+  h+='<div class="ev-dash-readiness-grid">'+
+    '<section class="ev-card"><div class="ev-dash-card-head"><div><h3>Deal Profitability</h3><p>What recent transactions actually retained.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="deals">View deals</button></div><div class="ev-card-pad">'+
+      (strongestDeal?'<div class="ev-readiness-kv"><span>Most profitable deal</span><b>'+esc(strongestDeal.property||strongestDeal.client)+' · '+money(strongestDeal.netProfit)+'</b></div>':'<div class="ev-readiness-kv"><span>Most profitable deal</span><b>Not available</b></div>')+
+      (weakestDeal?'<div class="ev-readiness-kv"><span>Lowest recorded margin</span><b>'+esc(weakestDeal.property||weakestDeal.client)+' · '+pct(weakestDeal.marginPct,0)+'</b></div>':'')+
+      '<div class="ev-readiness-kv"><span>Average net per paid closing</span><b>'+money(s.avgNet)+'</b></div><div class="ev-readiness-callout">'+icon('gauge',15)+'<span>Profitability combines retained commission, connected expenses, mileage, and transaction costs.</span></div></div></section>'+
+    '<section class="ev-card"><div class="ev-dash-card-head"><div><h3>Tax Readiness</h3><p>Reserve position and next planning action.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="tax">Open tax plan</button></div><div class="ev-card-pad"><div class="ev-readiness-kv"><span>Estimated obligation</span><b>'+money(tax.totalPlanned)+'</b></div><div class="ev-readiness-kv"><span>Currently reserved</span><b>'+money(tax.reserveActual)+'</b></div><div class="ev-readiness-kv"><span>Reserve gap</span><b class="ev-'+(tax.gap>0?'warn':'gain')+'">'+(tax.gap>0?money(tax.gap):'Covered')+'</b></div><div class="ev-readiness-kv"><span>Next estimated payment</span><b>'+(tax.nextQuarter?fmtDate(tax.nextQuarter.dueDate):'Review tax year')+'</b></div><div class="ev-readiness-callout">'+icon('info',15)+'<span>Planning estimate only—not accounting, tax, or legal advice.</span></div></div></section>'+
+    '<section class="ev-card"><div class="ev-dash-card-head"><div><h3>Financial Records Status</h3><p>Whether the dashboard is ready to trust.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="insights">Review gaps</button></div><div class="ev-card-pad"><div class="ev-readiness-kv"><span>Cross-module reconciliation</span><b class="ev-'+(reconciliation.ok?'gain':'risk')+'">'+(reconciliation.ok?'Passed':'Needs attention')+'</b></div><div class="ev-readiness-kv"><span>Uncategorized or missing fields</span><b>'+numFmt(dataGapCount)+'</b></div><div class="ev-readiness-kv"><span>Expenses missing receipts</span><b>'+numFmt(missingReceiptCount)+'</b></div><div class="ev-readiness-kv"><span>Bank lines reconciled</span><b>'+numFmt(bank.counts.reconciled)+' of '+numFmt(bank.counts.all)+'</b></div><div class="ev-readiness-callout">'+icon(dataGapCount||missingReceiptCount?'alert':'circleCheck',15)+'<span>'+(dataGapCount||missingReceiptCount?'Complete missing information before relying on reports or sharing records.':'Core records are complete and internally reconciled.')+'</span></div></div></section>'+
+  '</div>';
   h+='</div>';
   return h;
 };
