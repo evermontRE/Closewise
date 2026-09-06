@@ -7699,14 +7699,14 @@ VIEWS.dashboard = function(){
   var expectedNet90=0;
   pipeline.forEach(function(r){ var d=parseDate(r.expectedClosingDate), days=daysBetween(e.today,d); if(days>=0&&days<=90){ var p={Prospective:.2,'Under Contract':.75,Pending:.9}[r.status]||.5; expectedNet90+=r.calc.netReceived*p; }});
   var nextPipe=pipeline[0]||null;
-  var attention=ins.filter(function(i){return i.sev==='risk'||i.sev==='warn';}).slice(0,4);
-  ins.filter(function(i){return i.sev==='info';}).forEach(function(i){if(attention.length<4)attention.push(i);});
+  var attention=ins.filter(function(i){return i.sev==='risk'||i.sev==='warn';}).slice(0,3);
+  ins.filter(function(i){return i.sev==='info';}).forEach(function(i){if(attention.length<3)attention.push(i);});
   if(!attention.length){
     if(tax.gap>0) attention.push({rule:'TAX_RESERVE_BELOW_TARGET',text:'Tax reserve needs funding',why:money(tax.gap)+' remaining to your planned reserve',sev:'warn',action:{label:'Open Tax Planning',view:'tax'}});
     e.overdue().slice(0,2).forEach(function(r){attention.push({rule:'PENDING_PAST_EXPECTED_CLOSE',text:(r.client||'Commission')+' is past expected close',why:'Review closing and payment timing',sev:'risk',action:{label:'Review Commissions',view:'commissions'}});});
   }
-  obligations.forEach(function(o){if(attention.length<4)attention.push({rule:'UPCOMING_'+String(o.kind||'EVENT').toUpperCase(),text:o.label,why:o.detail+' · '+fmtDate(o.date),sev:o.tone==='risk'?'risk':'info',action:{label:'Open Financial Timeline',view:'timeline'}});});
-  while(attention.length<4)attention.push({rule:'RECORDS_CURRENT',text:'Financial records are current',why:'No additional urgent item was detected from your saved data.',sev:'gain',action:{label:'Review Smart Insights',view:'insights'}});
+  obligations.forEach(function(o){if(attention.length<3)attention.push({rule:'UPCOMING_'+String(o.kind||'EVENT').toUpperCase(),text:o.label,why:o.detail+' · '+fmtDate(o.date),sev:o.tone==='risk'?'risk':'info',action:{label:'Open Financial Timeline',view:'timeline'}});});
+  while(attention.length<3)attention.push({rule:'RECORDS_CURRENT',text:'Financial records are current',why:'No additional urgent item was detected from your saved data.',sev:'gain',action:{label:'Review Smart Insights',view:'insights'}});
   var gciGoal=goals.items ? goals.items.filter(function(g){return g.label==='Gross Commission Income';})[0] : null;
   var netGoal=goals.items ? goals.items.filter(function(g){return g.label==='Net Business Income';})[0] : null;
   if(!gciGoal) gciGoal={actual:s.gci,target:num(this.db.settings.annualGoalGCI),pct:num(this.db.settings.annualGoalGCI)>0?s.gci/num(this.db.settings.annualGoalGCI)*100:0};
@@ -7825,7 +7825,7 @@ VIEWS.dashboard = function(){
       '</div>'+
     '</section>'+
     '<aside class="ev-dashboard-right">'+
-      '<div class="ev-card ev-attention-card"><div class="ev-dash-card-head"><div><h3>Attention Today</h3><p>'+attention.filter(function(i){return i.sev==='risk'||i.sev==='warn';}).length+' priorities from your live financial scan.</p></div><div class="ev-attention-head-actions"><span class="ev-attention-live">'+icon('sparkles',13)+'Smart scan</span><button class="ev-btn ev-btn--quiet ev-btn--sm" data-act="nav" data-view="insights">View all</button></div></div><div class="ev-attention-list">'+attention.map(attentionRow).join('')+'</div></div>'+
+      '<div class="ev-card ev-attention-card"><div class="ev-dash-card-head"><div><h3>Attention Today</h3><p>'+attention.filter(function(i){return i.sev==='risk'||i.sev==='warn';}).length+' priorities from your financial records.</p></div><div class="ev-attention-head-actions"><button class="ev-btn ev-btn--quiet ev-btn--sm" data-act="nav" data-view="insights">View all</button></div></div><div class="ev-attention-list">'+attention.map(attentionRow).join('')+'</div></div>'+
       '<div class="ev-card ev-health-card"><div class="ev-dash-card-head"><div><h3>Financial Health Score</h3><p>Five signals from your current records.</p></div></div><div class="ev-card-pad"><div class="ev-health-layout"><div class="ev-health-ring">'+ringGauge(health.score,{size:122,stroke:9,color:toneVar(health.tone),center:pct(health.score,0),sub:health.band,title:'Financial health score'})+'</div><div class="ev-health-factors">'+health.factors.slice().sort(function(a,b){return b.weight-a.weight;}).map(function(f){var c=healthFactorColor(f.label),v=healthFactorView(f.label);return '<button class="ev-health-factor" data-act="nav" data-view="'+attr(v)+'" title="'+attr(f.why)+'"><span>'+esc(f.label)+'</span><b>'+pct(f.score*100,0)+'</b><i class="ev-health-meter"><em style="width:'+(f.score*100).toFixed(0)+'%;background:'+c+'"></em></i></button>';}).join('')+'</div></div><div class="ev-health-context"><div><span>Strongest measure</span><b>'+esc(health.factors.slice().sort(function(a,b){return b.score-a.score;})[0].label)+'</b></div><div><span>Needs the most attention</span><b>'+esc(health.factors.slice().sort(function(a,b){return a.score-b.score;})[0].label)+'</b></div></div><div class="ev-health-foot">'+(health.weakest.length?health.weakest.slice(0,2).map(function(f){return '<span>'+icon('minus',13)+esc(f.why)+'</span>';}).join(''):'<span>'+icon('circleCheck',13)+'Every measured factor is currently in a healthy range.</span>')+'</div></div></div>'+
     '</aside>'+
   '</div>'+outlookHtml;
