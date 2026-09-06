@@ -147,16 +147,16 @@
   --brand-500:#2f8a6d; --brand-400:#52a086; --brand-300:#8bbdac; --brand-100:#d8ebe4; --brand-050:#edf6f2;
 
   /* Balanced Section Color Intelligence: orientation, never financial status. */
-  --section-evergreen:#2f7158; --section-terracotta:#b7654b; --section-ledger:#4e7198;
-  --section-gold:#a57a33; --section-plum:#755b7d; --section-teal:#3f7f7c;
+  --section-evergreen:#2f7158; --section-terracotta:#bd6856; --section-ledger:#577c9d;
+  --section-gold:#b68335; --section-plum:#755b7d; --section-teal:#3f7f7c;
 
   --gain-700:#125c43; --gain-600:#177a58; --gain-500:#1f9a6f; --gain-100:#dcf3e9; --gain-050:#eefaf5;
-  --warn-700:#7a4b06; --warn-600:#9c6209; --warn-500:#c07d10; --warn-100:#fcefd7; --warn-050:#fdf7ec;
-  --risk-700:#8a1f26; --risk-600:#b02a32; --risk-500:#d03b44; --risk-100:#fbe3e4; --risk-050:#fdf1f2;
-  --info-700:#0f4c63; --info-600:#146480; --info-500:#1b82a4; --info-100:#daeef5; --info-050:#eef8fb;
+  --warn-700:#79551f; --warn-600:#956a29; --warn-500:#b68335; --warn-100:#f2e4c6; --warn-050:#faf4e8;
+  --risk-700:#87483b; --risk-600:#a95848; --risk-500:#bd6856; --risk-100:#f2dcd6; --risk-050:#fbf1ee;
+  --info-700:#365875; --info-600:#476b89; --info-500:#577c9d; --info-100:#dbe7f0; --info-050:#eef4f8;
 
-  --acc-1:#2f7158; --acc-2:#4e7198; --acc-3:#3f7f7c; --acc-4:#a57a33;
-  --acc-5:#755b7d; --acc-6:#b7654b; --acc-7:#727775; --acc-8:#8b624d;
+  --acc-1:#2f7158; --acc-2:#577c9d; --acc-3:#3f7f7c; --acc-4:#b68335;
+  --acc-5:#755b7d; --acc-6:#bd6856; --acc-7:#727775; --acc-8:#8b624d;
 
   --r-xs:6px; --r-sm:9px; --r-md:12px; --r-lg:16px; --r-xl:22px; --r-full:999px;
   --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px;
@@ -921,15 +921,15 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
 
 /* ===== evermont-dashboard-current ===== */
 :root{
-  --ev-meter-tax:#4f73b7;
-  --ev-meter-cash:#3f8984;
+  --ev-meter-tax:#b68335;
+  --ev-meter-cash:#577c9d;
   --ev-meter-profit:#2f7d5c;
   --ev-meter-pipeline:#765b86;
-  --ev-meter-goal:#b1842c;
+  --ev-meter-goal:#b68335;
   --ev-wealth-green:#2d775c;
   --ev-wealth-mint:#75b99a;
-  --ev-wealth-gold:#b1842c;
-  --ev-wealth-gold-soft:#d5b76d;
+  --ev-wealth-gold:#b68335;
+  --ev-wealth-gold-soft:#d9b878;
 }
 .ev-dashboard-shell{
   --dash-gap:18px;
@@ -1071,17 +1071,25 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
 .ev-dashboard-right{grid-template-rows:auto auto}
 .ev-dash-workflow-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:var(--dash-gap);min-width:0}
 .ev-dash-workflow-card .ev-card-pad{padding-top:14px}
-.ev-bank-workflow-status{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid #d8e5df;border-radius:12px;background:#f5faf7;color:#325f50}
-.ev-bank-workflow-status>svg{flex:none;color:var(--brand-600)}
+.ev-bank-workflow-status{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid #dbe7f0;border-radius:12px;background:#eef4f8;color:#365875}
+.ev-bank-workflow-status>svg{flex:none;color:var(--section-ledger)}
 .ev-bank-workflow-status strong,.ev-bank-workflow-status small{display:block}.ev-bank-workflow-status small{margin-top:3px;color:var(--ink-500)}
 .ev-bank-workflow-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
 .ev-bank-workflow-count{appearance:none;display:flex;flex-direction:column;gap:3px;min-width:0;padding:12px;border:1px solid var(--surface-border);border-radius:11px;background:var(--surface-raised);color:var(--ink-700);text-align:left}
-.ev-bank-workflow-count:hover{border-color:var(--brand-300);background:var(--brand-050)}
+.ev-bank-workflow-count:hover{border-color:#b9ccdc;background:#f3f7fa}
+.ev-bank-workflow-count strong{color:var(--info-700)}
 .ev-bank-workflow-count strong{font:700 22px/1.1 var(--f-display);font-variant-numeric:tabular-nums}.ev-bank-workflow-count span{color:var(--ink-500);font-size:12px}
 .ev-pipeline-compact{display:grid}.ev-pipeline-row{appearance:none;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:12px 0;border:0;border-top:1px solid var(--surface-border);background:transparent;color:var(--ink-800);text-align:left}
 .ev-pipeline-row:first-child{border-top:0;padding-top:0}.ev-pipeline-row:last-child{padding-bottom:0}.ev-pipeline-row:hover strong{color:var(--brand-700)}
 .ev-pipeline-row>span{grid-column:1;color:var(--ink-500);font-size:12px}.ev-pipeline-row>strong{grid-column:1;grid-row:1;font-weight:700}.ev-pipeline-money{grid-column:2;grid-row:1/3;text-align:right}.ev-pipeline-money b,.ev-pipeline-money small{display:block}.ev-pipeline-money b{font-family:var(--f-display);font-variant-numeric:tabular-nums}.ev-pipeline-money small{margin-top:3px;color:var(--ink-500);font-size:11px}
 .ev-dash-readiness-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--dash-gap);min-width:0}
+.ev-readiness-card{position:relative}
+.ev-readiness-card::before{content:"";position:absolute;inset:0 0 auto;height:3px;pointer-events:none}
+.ev-readiness-card--profit::before{background:var(--brand-500)}
+.ev-readiness-card--tax::before{background:var(--section-gold)}
+.ev-readiness-card--records::before{background:var(--section-ledger)}
+.ev-readiness-card--tax .ev-readiness-callout{background:var(--warn-050);color:var(--warn-700)}
+.ev-readiness-card--records .ev-readiness-callout{background:var(--info-050);color:var(--info-700)}
 .ev-readiness-kv{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid var(--surface-border)}.ev-readiness-kv:first-child{padding-top:0;border-top:0}.ev-readiness-kv span{color:var(--ink-500);font-size:12px}.ev-readiness-kv b{color:var(--ink-800);text-align:right;font-variant-numeric:tabular-nums}
 .ev-readiness-callout{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:11px;border-radius:10px;background:var(--brand-050);color:var(--brand-800);font-size:12px;line-height:1.45}.ev-readiness-callout>svg{flex:none;margin-top:1px}
 .ev-dash-bottom-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--dash-gap);min-width:0}
@@ -1102,9 +1110,9 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
 .ev-chart-summary-item{min-width:0;padding:8px 10px;border:1px solid #e4e8e6;border-radius:10px;background:#fbfcfb;display:flex;align-items:baseline;gap:7px;justify-content:space-between}
 .ev-chart-summary-item span{font:500 13px/1.25 Inter,sans-serif;color:#747d79;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ev-chart-summary-item b{font-family:var(--f-display);font-size:15px;line-height:1;color:#303734;white-space:nowrap;font-variant-numeric:tabular-nums}
-.ev-chart-summary-item--gain b{color:#2d775c}
-.ev-chart-summary-item--risk b{color:#a95843}
-.ev-chart-summary-item--profit b{color:#9b731c}
+.ev-chart-summary-item--gain b{color:var(--brand-700)}
+.ev-chart-summary-item--risk b{color:var(--risk-600)}
+.ev-chart-summary-item--profit b{color:var(--warn-700)}
 .ev-dash-chart .ev-chartwrap{width:100%;min-height:242px;max-height:302px;display:flex;align-items:center;overflow:hidden;margin:0}
 .ev-dash-chart .ev-chartwrap>svg{display:block;width:100%;height:auto;max-width:100%;max-height:286px}
 .ev-dash-chart .ev-legend{font-size:13px;gap:16px;margin-top:5px}
@@ -1168,8 +1176,8 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
 .ev-goal-delta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:11px;border-top:1px solid #e5e8e6}
 .ev-goal-delta span{font:400 13px/1.4 Inter,sans-serif;color:#68716d}
 .ev-goal-delta b{font-family:var(--f-display);font-size:18px;color:#29302d;white-space:nowrap}
-.ev-dashboard-shell .ev-attention-card{background:#f7f9fb;border-color:#d7e0e6;box-shadow:inset 3px 0 0 rgba(78,111,145,.16),0 1px 2px rgba(25,27,29,.04),0 8px 22px rgba(25,27,29,.025)}
-.ev-dashboard-shell .ev-attention-card:hover{border-color:#cedae2;box-shadow:inset 3px 0 0 rgba(78,111,145,.20),0 1px 2px rgba(25,27,29,.04),0 10px 26px rgba(25,27,29,.04)}
+.ev-dashboard-shell .ev-attention-card{background:#fdf9f8;border-color:#eadbd7;box-shadow:inset 3px 0 0 rgba(189,104,86,.24),0 1px 2px rgba(25,27,29,.04),0 8px 22px rgba(25,27,29,.025)}
+.ev-dashboard-shell .ev-attention-card:hover{border-color:#dfc9c3;box-shadow:inset 3px 0 0 rgba(189,104,86,.32),0 1px 2px rgba(25,27,29,.04),0 10px 26px rgba(25,27,29,.04)}
 .ev-attention-card .ev-dash-card-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;column-gap:10px}
 .ev-attention-head-actions{margin-left:0;display:grid;justify-items:end;align-content:start;gap:5px;min-width:0}
 .ev-attention-head-actions .ev-btn{min-height:26px;padding:2px 5px;font:500 13px/1.2 Inter,sans-serif;white-space:nowrap}
@@ -1181,9 +1189,9 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
 .ev-attention-row:hover{background:rgba(78,111,145,.055)}
 .ev-attention-row:focus-visible{outline:2px solid rgba(47,138,109,.22);outline-offset:2px;border-radius:9px}
 .ev-attention-rail{width:4px;border-radius:999px;align-self:stretch;min-height:54px;background:#9ca5a1}
-.ev-attention-row--risk .ev-attention-rail{background:#b04b45}
-.ev-attention-row--warn .ev-attention-rail{background:#b07a1d}
-.ev-attention-row--info .ev-attention-rail{background:#547fb3}
+.ev-attention-row--risk .ev-attention-rail{background:var(--section-terracotta)}
+.ev-attention-row--warn .ev-attention-rail{background:var(--section-gold)}
+.ev-attention-row--info .ev-attention-rail{background:var(--section-ledger)}
 .ev-attention-row--gain .ev-attention-rail{background:#3b8666}
 .ev-attention-copy{min-width:0;display:grid;gap:4px;align-content:start}
 .ev-attention-meta{display:flex;align-items:center;gap:6px;min-width:0;flex-wrap:wrap}
@@ -1222,8 +1230,8 @@ body{background:var(--surface-workspace);overflow-x:hidden;}
 .ev-health-context>div{padding:8px 9px;border:1px solid #e4e7e5;border-radius:10px;background:#fafbfa;min-width:0}
 .ev-health-context span{display:block;font:500 13px/1.25 Inter,sans-serif;color:#7a817e}
 .ev-health-context b{display:block;margin-top:2px;font:700 13px/1.3 Inter,sans-serif;color:#414844;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ev-outlook-card{overflow:hidden;position:relative;border-color:#d8dfdb;background:linear-gradient(145deg,#fff 0%,#fbfcfa 57%,#f7faf7 100%)}
-.ev-outlook-card::after{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--ev-wealth-green),var(--ev-wealth-gold),var(--ev-meter-cash));opacity:.82;pointer-events:none}
+.ev-outlook-card{overflow:hidden;position:relative;border-color:#dbe4eb;background:linear-gradient(145deg,#fff 0%,#fbfcfd 57%,#f3f7fa 100%)}
+.ev-outlook-card::after{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--section-ledger),#86a4bc);opacity:.9;pointer-events:none}
 .ev-outlook-card .ev-dash-card-head{padding-top:18px}
 .ev-outlook-head-actions{display:flex;align-items:center;gap:8px;flex:none;min-width:0}
 .ev-forecast-confidence{display:flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid #dbe3df;border-radius:999px;background:#f8faf9;color:#52605a;font:600 13px/1 Inter,sans-serif;white-space:nowrap}
@@ -6437,7 +6445,7 @@ function chartFinancialLines(netSeries, expenseSeries, profitSeries, opts){
   var all=netSeries.concat(expenseSeries).concat(profitSeries).concat([0]);
   var maxV=Math.max.apply(null,all),minV=Math.min.apply(null,all),ax=axisTicks(maxV,Math.min(minV,0),4),span=(ax.top-ax.bottom)||1;
   var x=function(i){return padL+(n<=1?plotW/2:i/(n-1)*plotW);}, y=function(v){return padT+plotH-((v-ax.bottom)/span)*plotH;};
-  var labels=opts.labels||MONTHS.slice(0,n),cNet=opts.netColor||'#2d775c',cExp=opts.expenseColor||'#b76047',cProfit=opts.profitColor||'#b98b26';
+  var labels=opts.labels||MONTHS.slice(0,n),cNet=opts.netColor||'#2f8a6d',cExp=opts.expenseColor||'#bd6856',cProfit=opts.profitColor||'#b68335';
   var gid='profitArea'+Math.abs(hashStr((opts.title||'financial-lines')+String(n)));
   function points(arr){return arr.map(function(v,i){return x(i).toFixed(1)+','+y(num(v)).toFixed(1);}).join(' ');}
   var out=svgOpen(W,H,opts.title||'Income, expenses and profit','Monthly net commission, operating expenses and profit from saved Finance Studio records.');
@@ -7814,8 +7822,8 @@ VIEWS.dashboard = function(){
     '<section class="ev-dashboard-left">'+
       '<div class="ev-card ev-dash-chart"><div class="ev-dash-card-head"><div><h3>Income, Expenses & Profit</h3><p>Monthly operating results.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="reports">View report</button></div><div class="ev-card-pad">'+
       '<div class="ev-chart-summary"><div class="ev-chart-summary-item ev-chart-summary-item--gain"><span>YTD net commission</span><b>'+money(chartNetYtd)+'</b></div><div class="ev-chart-summary-item ev-chart-summary-item--risk"><span>YTD operating expenses</span><b>'+money(chartExpenseYtd)+'</b></div><div class="ev-chart-summary-item ev-chart-summary-item--profit"><span>YTD profit</span><b>'+money(chartProfitYtd)+'</b></div></div>'+
-      '<div class="ev-chartwrap">'+chartFinancialLines(chartNet,chartExpenses,chartProfit,{title:'Income, expenses and profit · '+e.year,labels:MONTHS.slice(0,mIdx+1),highlight:mIdx,netColor:'#2d775c',expenseColor:'#b76047',profitColor:'#b98b26'})+'</div>'+
-      legend([{label:'Net commission',color:'#2d775c'},{label:'Operating expenses',color:'#b76047'},{label:'Profit',color:'#b98b26'}])+
+      '<div class="ev-chartwrap">'+chartFinancialLines(chartNet,chartExpenses,chartProfit,{title:'Income, expenses and profit · '+e.year,labels:MONTHS.slice(0,mIdx+1),highlight:mIdx,netColor:'#2f8a6d',expenseColor:'#bd6856',profitColor:'#b68335'})+'</div>'+
+      legend([{label:'Net commission',color:'#2f8a6d'},{label:'Operating expenses',color:'#bd6856'},{label:'Profit',color:'#b68335'}])+
       '<div class="ev-dash-insight-line">'+icon('bulb',15)+'<span><b>Insight</b> '+esc(chartProfitYtd>=0?('You are profitable year to date. '+MONTHS_LONG[bestProfitIdx]+' is your strongest profit month at '+money(chartProfit[bestProfitIdx])+'.'):('Year-to-date profit is negative. Review expenses and upcoming commission timing.'))+'</span><small>Through '+esc(fmtDate(todayISO()))+'</small></div></div></div>'+
       '<div class="ev-dash-bottom-grid">'+
         '<div class="ev-card"><div class="ev-dash-card-head"><div><h3>Coming Next</h3><p>Closings, renewals, and obligations.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="timeline">View timeline</button></div><div class="ev-coming-list">'+
@@ -7830,12 +7838,12 @@ VIEWS.dashboard = function(){
     '</aside>'+
   '</div>'+outlookHtml;
   h+='<div class="ev-dash-readiness-grid">'+
-    '<section class="ev-card"><div class="ev-dash-card-head"><div><h3>Deal Profitability</h3><p>What recent transactions actually retained.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="deals">View deals</button></div><div class="ev-card-pad">'+
+    '<section class="ev-card ev-readiness-card ev-readiness-card--profit"><div class="ev-dash-card-head"><div><h3>Deal Profitability</h3><p>What recent transactions actually retained.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="deals">View deals</button></div><div class="ev-card-pad">'+
       (strongestDeal?'<div class="ev-readiness-kv"><span>Most profitable deal</span><b>'+esc(strongestDeal.property||strongestDeal.client)+' · '+money(strongestDeal.netProfit)+'</b></div>':'<div class="ev-readiness-kv"><span>Most profitable deal</span><b>Not available</b></div>')+
       (weakestDeal?'<div class="ev-readiness-kv"><span>Lowest recorded margin</span><b>'+esc(weakestDeal.property||weakestDeal.client)+' · '+pct(weakestDeal.marginPct,0)+'</b></div>':'')+
       '<div class="ev-readiness-kv"><span>Average net per paid closing</span><b>'+money(s.avgNet)+'</b></div><div class="ev-readiness-callout">'+icon('gauge',15)+'<span>Profitability combines retained commission, connected expenses, mileage, and transaction costs.</span></div></div></section>'+
-    '<section class="ev-card"><div class="ev-dash-card-head"><div><h3>Tax Readiness</h3><p>Reserve position and next planning action.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="tax">Open tax plan</button></div><div class="ev-card-pad"><div class="ev-readiness-kv"><span>Estimated obligation</span><b>'+money(tax.totalPlanned)+'</b></div><div class="ev-readiness-kv"><span>Currently reserved</span><b>'+money(tax.reserveActual)+'</b></div><div class="ev-readiness-kv"><span>Reserve gap</span><b class="ev-'+(tax.gap>0?'warn':'gain')+'">'+(tax.gap>0?money(tax.gap):'Covered')+'</b></div><div class="ev-readiness-kv"><span>Next estimated payment</span><b>'+(tax.nextQuarter?fmtDate(tax.nextQuarter.dueDate):'Review tax year')+'</b></div><div class="ev-readiness-callout">'+icon('info',15)+'<span>Planning estimate only—not accounting, tax, or legal advice.</span></div></div></section>'+
-    '<section class="ev-card"><div class="ev-dash-card-head"><div><h3>Financial Records Status</h3><p>Whether the dashboard is ready to trust.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="insights">Review gaps</button></div><div class="ev-card-pad"><div class="ev-readiness-kv"><span>Cross-module reconciliation</span><b class="ev-'+(reconciliation.ok?'gain':'risk')+'">'+(reconciliation.ok?'Passed':'Needs attention')+'</b></div><div class="ev-readiness-kv"><span>Uncategorized or missing fields</span><b>'+numFmt(dataGapCount)+'</b></div><div class="ev-readiness-kv"><span>Expenses missing receipts</span><b>'+numFmt(missingReceiptCount)+'</b></div><div class="ev-readiness-kv"><span>Bank lines reconciled</span><b>'+numFmt(bank.counts.reconciled)+' of '+numFmt(bank.counts.all)+'</b></div><div class="ev-readiness-callout">'+icon(dataGapCount||missingReceiptCount?'alert':'circleCheck',15)+'<span>'+(dataGapCount||missingReceiptCount?'Complete missing information before relying on reports or sharing records.':'Core records are complete and internally reconciled.')+'</span></div></div></section>'+
+    '<section class="ev-card ev-readiness-card ev-readiness-card--tax"><div class="ev-dash-card-head"><div><h3>Tax Readiness</h3><p>Reserve position and next planning action.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="tax">Open tax plan</button></div><div class="ev-card-pad"><div class="ev-readiness-kv"><span>Estimated obligation</span><b>'+money(tax.totalPlanned)+'</b></div><div class="ev-readiness-kv"><span>Currently reserved</span><b>'+money(tax.reserveActual)+'</b></div><div class="ev-readiness-kv"><span>Reserve gap</span><b class="ev-'+(tax.gap>0?'warn':'gain')+'">'+(tax.gap>0?money(tax.gap):'Covered')+'</b></div><div class="ev-readiness-kv"><span>Next estimated payment</span><b>'+(tax.nextQuarter?fmtDate(tax.nextQuarter.dueDate):'Review tax year')+'</b></div><div class="ev-readiness-callout">'+icon('info',15)+'<span>Planning estimate only—not accounting, tax, or legal advice.</span></div></div></section>'+
+    '<section class="ev-card ev-readiness-card ev-readiness-card--records"><div class="ev-dash-card-head"><div><h3>Financial Records Status</h3><p>Whether the dashboard is ready to trust.</p></div><button class="ev-btn ev-btn--ghost ev-btn--sm" data-act="nav" data-view="insights">Review gaps</button></div><div class="ev-card-pad"><div class="ev-readiness-kv"><span>Cross-module reconciliation</span><b class="ev-'+(reconciliation.ok?'gain':'risk')+'">'+(reconciliation.ok?'Passed':'Needs attention')+'</b></div><div class="ev-readiness-kv"><span>Uncategorized or missing fields</span><b>'+numFmt(dataGapCount)+'</b></div><div class="ev-readiness-kv"><span>Expenses missing receipts</span><b>'+numFmt(missingReceiptCount)+'</b></div><div class="ev-readiness-kv"><span>Bank lines reconciled</span><b>'+numFmt(bank.counts.reconciled)+' of '+numFmt(bank.counts.all)+'</b></div><div class="ev-readiness-callout">'+icon(dataGapCount||missingReceiptCount?'alert':'circleCheck',15)+'<span>'+(dataGapCount||missingReceiptCount?'Complete missing information before relying on reports or sharing records.':'Core records are complete and internally reconciled.')+'</span></div></div></section>'+
   '</div>';
   h+='</div>';
   return h;
